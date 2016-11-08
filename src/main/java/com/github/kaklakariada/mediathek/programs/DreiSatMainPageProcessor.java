@@ -26,7 +26,7 @@ public class DreiSatMainPageProcessor implements Consumer<Document> {
         LOG.debug("Found {} category links", categoryLinks.size());
         categoryLinks.stream().map(elem -> elem.attr("href"))
                 .map(url -> url + "&type=1")
-                .forEach(url -> context.enqueue(url, new DreiSatListPageProcessor(context, 0)));
+                .forEach(url -> context.submit(url, new DreiSatListPageProcessor(context, 0)));
     }
 
 }

@@ -6,16 +6,16 @@ import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.kaklakariada.mediathek.MediathekCrawler;
+import com.github.kaklakariada.mediathek.CrawlerContext;
 
 public class DreiSatListPageProcessor implements Consumer<Document> {
 
     private static final Logger LOG = LoggerFactory.getLogger(DreiSatListPageProcessor.class);
-    private final MediathekCrawler crawler;
+    private final CrawlerContext context;
     private final int pageNumber;
 
-    public DreiSatListPageProcessor(MediathekCrawler crawler, int pageNumber) {
-        this.crawler = crawler;
+    public DreiSatListPageProcessor(CrawlerContext context, int pageNumber) {
+        this.context = context;
         this.pageNumber = pageNumber;
     }
 

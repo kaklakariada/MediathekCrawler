@@ -9,8 +9,8 @@ import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MediathekCrawler {
-    private static final Logger LOG = LoggerFactory.getLogger(MediathekCrawler.class);
+public class CrawlerContext {
+    private static final Logger LOG = LoggerFactory.getLogger(CrawlerContext.class);
 
     private final ExecutorService downloadingExecutor = Executors.newSingleThreadExecutor();
     private final ExecutorService processingExecutor = Executors.newSingleThreadExecutor();

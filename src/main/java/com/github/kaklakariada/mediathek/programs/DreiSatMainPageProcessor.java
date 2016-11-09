@@ -1,15 +1,14 @@
 package com.github.kaklakariada.mediathek.programs;
 
-import java.util.function.Consumer;
-
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.mediathek.CrawlerContext;
+import com.github.kaklakariada.mediathek.DocumentProcessor;
 
-public class DreiSatMainPageProcessor implements Consumer<Document> {
+public class DreiSatMainPageProcessor extends DocumentProcessor {
 
     private static final Logger LOG = LoggerFactory.getLogger(DreiSatMainPageProcessor.class);
 
@@ -20,7 +19,7 @@ public class DreiSatMainPageProcessor implements Consumer<Document> {
     }
 
     @Override
-    public void accept(Document doc) {
+    public void process(Document doc) {
         LOG.debug("Processing url {} with titel '{}'", doc.baseUri(), doc.title());
         final Elements categoryLinks = doc.select("a.SubItem");
         LOG.debug("Found {} category links", categoryLinks.size());
@@ -28,5 +27,4 @@ public class DreiSatMainPageProcessor implements Consumer<Document> {
                 .map(url -> url + "&type=1")
                 .forEach(url -> context.submit(url, new DreiSatListPageProcessor(context, 0)));
     }
-
 }

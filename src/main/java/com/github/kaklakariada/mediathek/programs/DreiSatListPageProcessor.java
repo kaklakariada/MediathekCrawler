@@ -1,14 +1,13 @@
 package com.github.kaklakariada.mediathek.programs;
 
-import java.util.function.Consumer;
-
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.mediathek.CrawlerContext;
+import com.github.kaklakariada.mediathek.DocumentProcessor;
 
-public class DreiSatListPageProcessor implements Consumer<Document> {
+public class DreiSatListPageProcessor extends DocumentProcessor {
 
     private static final Logger LOG = LoggerFactory.getLogger(DreiSatListPageProcessor.class);
     private final CrawlerContext context;
@@ -20,7 +19,7 @@ public class DreiSatListPageProcessor implements Consumer<Document> {
     }
 
     @Override
-    public void accept(Document doc) {
+    public void process(Document doc) {
         LOG.debug("Processing list page #{} with url {}", pageNumber, doc.baseUri());
     }
 }

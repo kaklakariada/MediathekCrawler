@@ -3,9 +3,7 @@ package com.github.kaklakariada.mediathek;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 
-import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +18,7 @@ public class CrawlingExecutor {
         processingExecutor = Executors.newSingleThreadExecutor();
     }
 
-    public void submit(String url, Consumer<Document> processor) {
+    public void submit(String url, DocumentProcessor processor) {
         downloadingExecutor.execute(new DownloadingTask(url, processingExecutor, processor));
     }
 

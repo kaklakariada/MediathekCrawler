@@ -1,8 +1,5 @@
 package com.github.kaklakariada.mediathek;
 
-import java.util.function.Consumer;
-
-import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +11,7 @@ public class CrawlerContext {
         this.executor = new CrawlingExecutor();
     }
 
-    public void submit(String url, Consumer<Document> processor) {
+    public void submit(String url, DocumentProcessor processor) {
         executor.submit(url, processor);
     }
 }

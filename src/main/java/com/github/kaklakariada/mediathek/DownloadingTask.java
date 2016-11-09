@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.ExecutorService;
-import java.util.function.Consumer;
 
 import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
@@ -20,9 +19,9 @@ public class DownloadingTask implements Runnable {
 
     private final String url;
     private final ExecutorService processingExecutor;
-    private final Consumer<Document> processor;
+    private final DocumentProcessor processor;
 
-    public DownloadingTask(String url, ExecutorService processingExecutor, Consumer<Document> processor) {
+    public DownloadingTask(String url, ExecutorService processingExecutor, DocumentProcessor processor) {
         this.url = url;
         this.processingExecutor = processingExecutor;
         this.processor = processor;
@@ -46,7 +45,7 @@ public class DownloadingTask implements Runnable {
         final Response response = downloadUrl();
         processingExecutor.execute(() -> {
             final Document doc = parse(response);
-            processor.accept(doc);
+            processor.process(doc);
         });
         delay();
     }

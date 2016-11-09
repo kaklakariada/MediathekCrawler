@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.mediathek.CrawlerContext;
 import com.github.kaklakariada.mediathek.DocumentProcessor;
+import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
 public class DreiSatListPageProcessor extends DocumentProcessor {
 
@@ -26,18 +27,25 @@ public class DreiSatListPageProcessor extends DocumentProcessor {
 
     @Override
     public void process(Document doc) {
-        final List<String> detailPageUrls = doc.select("a.MediathekLink").stream()
+        final List<String> objectIds = doc.select("a.MediathekLink").stream()
                 .map(elem -> elem.attr("href"))
                 .filter(url -> url.contains("mode=play"))
                 .distinct()
+                .map(ParsedUrl::parse)
+                .map(url -> url.getParam("obj"))
                 .collect(toList());
-        LOG.debug("Processing list page #{} with url {} and {} detail links", pageNumber, doc.baseUri(),
-                detailPageUrls.size());
 
-        detailPageUrls
-                .stream()
+        LOG.debug("Processing list page #{} with url {} and {} detail pages", pageNumber, doc.baseUri(),
+                objectIds.size());
+
+        objectIds.stream()
                 .limit(context.getConfig().getIterationLimit())
-                .forEach(url -> context.submit(url, new DreiSatDetailPageProcessor(context)));
+                .map(objId -> "http://www.3sat.de/mediathek/xmlservice/v2/web/beitragsDetails?ak=web&id=" + objId);
+
+        // detailPageUrls
+        // .stream()
+        // .forEach(url -> context.submit(url, new
+        // DreiSatDetailPageProcessor(context)));
 
         submitNextPageLink(doc.select("a.mediathek_menu_low"));
     }

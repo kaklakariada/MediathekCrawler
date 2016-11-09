@@ -23,7 +23,9 @@ public class DreiSatMainPageProcessor extends DocumentProcessor {
         LOG.debug("Processing url {} with titel '{}'", doc.baseUri(), doc.title());
         final Elements categoryLinks = doc.select("a.SubItem");
         LOG.debug("Found {} category links", categoryLinks.size());
-        categoryLinks.stream().map(elem -> elem.attr("href"))
+        categoryLinks.stream()
+                .limit(context.getConfig().getIterationLimit())
+                .map(elem -> elem.attr("href"))
                 .map(url -> url + "&type=1")
                 .forEach(url -> context.submit(url, new DreiSatListPageProcessor(context, 0)));
     }

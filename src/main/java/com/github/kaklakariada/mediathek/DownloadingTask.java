@@ -14,17 +14,18 @@ import org.slf4j.LoggerFactory;
 import com.github.kaklakariada.mediathek.converter.HtmlDocumentConverter;
 import com.github.kaklakariada.mediathek.converter.ResponseConverter;
 import com.github.kaklakariada.mediathek.converter.XmlConverter;
+import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
 public class DownloadingTask implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(DownloadingTask.class);
 
     private static final int THROTTLING_DELAY_MILLIS = 200;
 
-    private final String url;
+    private final ParsedUrl url;
     private final ExecutorService processingExecutor;
     private final DocumentProcessor<?> processor;
 
-    public DownloadingTask(String url, ExecutorService processingExecutor, DocumentProcessor<?> processor) {
+    public DownloadingTask(ParsedUrl url, ExecutorService processingExecutor, DocumentProcessor<?> processor) {
         this.url = url;
         this.processingExecutor = processingExecutor;
         this.processor = processor;
@@ -34,7 +35,7 @@ public class DownloadingTask implements Runnable {
         LOG.trace("Downloading url {}...", url);
         final Instant start = Instant.now();
         try {
-            final Connection connection = Jsoup.connect(url);
+            final Connection connection = Jsoup.connect(url.toString());
             final Response response = connection.execute();
             LOG.debug("Downloaded {} in {}", url, Duration.between(start, Instant.now()));
             return response;
@@ -53,7 +54,7 @@ public class DownloadingTask implements Runnable {
     private <T> void process(final Response response, DocumentProcessor<T> proc) {
         final ResponseConverter<T> converter = createConverter(proc);
         final T doc = converter.convert(response);
-        proc.process(doc);
+        proc.process(url, doc);
     }
 
     @SuppressWarnings("unchecked")

@@ -75,4 +75,9 @@ public class ParsedUrl {
         final String value = idx > 0 && it.length() > idx + 1 ? it.substring(idx + 1) : null;
         return new SimpleImmutableEntry<>(key, value);
     }
+
+    @Override
+    public String toString() {
+        return url.toString();
+    }
 }

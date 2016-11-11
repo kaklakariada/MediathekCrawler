@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.kaklakariada.mediathek.util.ParsedUrl;
+
 public class CrawlingExecutor {
     private static final Logger LOG = LoggerFactory.getLogger(CrawlingExecutor.class);
 
@@ -19,7 +21,7 @@ public class CrawlingExecutor {
     }
 
     public void submit(String url, DocumentProcessor<?> processor) {
-        downloadingExecutor.execute(new DownloadingTask(url, processingExecutor, processor));
+        downloadingExecutor.execute(new DownloadingTask(ParsedUrl.parse(url), processingExecutor, processor));
     }
 
     public void shutdown() {

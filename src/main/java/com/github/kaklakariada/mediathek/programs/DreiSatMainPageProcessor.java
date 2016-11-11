@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.mediathek.CrawlerContext;
 import com.github.kaklakariada.mediathek.HtmlDocumentProcessor;
+import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
 public class DreiSatMainPageProcessor extends HtmlDocumentProcessor {
 
@@ -17,8 +18,8 @@ public class DreiSatMainPageProcessor extends HtmlDocumentProcessor {
     }
 
     @Override
-    public void process(Document doc) {
-        LOG.debug("Processing url {} with titel '{}'", doc.baseUri(), doc.title());
+    public void process(ParsedUrl parsedUrl, Document doc) {
+        LOG.debug("Processing url {} with titel '{}'", parsedUrl, doc.title());
         final Elements categoryLinks = doc.select("a.SubItem");
         LOG.debug("Found {} category links", categoryLinks.size());
         categoryLinks.stream()

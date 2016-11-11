@@ -6,16 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.mediathek.CrawlerContext;
-import com.github.kaklakariada.mediathek.DocumentProcessor;
+import com.github.kaklakariada.mediathek.HtmlDocumentProcessor;
 
-public class DreiSatMainPageProcessor extends DocumentProcessor {
+public class DreiSatMainPageProcessor extends HtmlDocumentProcessor {
 
     private static final Logger LOG = LoggerFactory.getLogger(DreiSatMainPageProcessor.class);
 
-    private final CrawlerContext context;
-
     public DreiSatMainPageProcessor(CrawlerContext context) {
-        this.context = context;
+        super(context);
     }
 
     @Override

@@ -6,22 +6,20 @@ import java.util.List;
 import java.util.Optional;
 
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.mediathek.CrawlerContext;
-import com.github.kaklakariada.mediathek.DocumentProcessor;
+import com.github.kaklakariada.mediathek.HtmlDocumentProcessor;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
-public class DreiSatListPageProcessor extends DocumentProcessor {
+public class DreiSatListPageProcessor extends HtmlDocumentProcessor {
 
     private static final Logger LOG = LoggerFactory.getLogger(DreiSatListPageProcessor.class);
-    private final CrawlerContext context;
     private final int pageNumber;
 
     public DreiSatListPageProcessor(CrawlerContext context, int pageNumber) {
-        this.context = context;
+        super(context);
         this.pageNumber = pageNumber;
     }
 
@@ -47,16 +45,16 @@ public class DreiSatListPageProcessor extends DocumentProcessor {
         // .forEach(url -> context.submit(url, new
         // DreiSatDetailPageProcessor(context)));
 
-        submitNextPageLink(doc.select("a.mediathek_menu_low"));
+        submitNextPageLink(doc);
     }
 
-    private void submitNextPageLink(Elements links) {
+    private void submitNextPageLink(Document doc) {
         if (pageNumber >= context.getConfig().getIterationLimit()) {
             LOG.debug("Skipping next page link check on page #{}", pageNumber);
             return;
         }
         final String nextPageNumber = String.valueOf(pageNumber + 2);
-        final Optional<String> nextPageUrl = links.stream()
+        final Optional<String> nextPageUrl = doc.select("a.mediathek_menu_low").stream()
                 .filter(elem -> nextPageNumber.equals(elem.text()))
                 .map(elem -> elem.attr("href"))
                 .findFirst();

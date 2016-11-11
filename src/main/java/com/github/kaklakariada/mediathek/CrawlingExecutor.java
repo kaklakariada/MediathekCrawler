@@ -18,7 +18,7 @@ public class CrawlingExecutor {
         processingExecutor = Executors.newSingleThreadExecutor();
     }
 
-    public void submit(String url, DocumentProcessor processor) {
+    public void submit(String url, DocumentProcessor<?> processor) {
         downloadingExecutor.execute(new DownloadingTask(url, processingExecutor, processor));
     }
 

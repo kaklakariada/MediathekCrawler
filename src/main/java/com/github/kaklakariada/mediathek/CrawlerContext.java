@@ -13,7 +13,7 @@ public class CrawlerContext {
         this.config = new Config();
     }
 
-    public void submit(String url, DocumentProcessor processor) {
+    public void submit(String url, DocumentProcessor<?> processor) {
         executor.submit(url, processor);
     }
 

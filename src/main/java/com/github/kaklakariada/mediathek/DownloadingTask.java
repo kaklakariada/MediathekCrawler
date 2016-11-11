@@ -8,9 +8,12 @@ import java.util.concurrent.ExecutorService;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.github.kaklakariada.mediathek.converter.HtmlDocumentConverter;
+import com.github.kaklakariada.mediathek.converter.ResponseConverter;
+import com.github.kaklakariada.mediathek.converter.XmlConverter;
 
 public class DownloadingTask implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(DownloadingTask.class);
@@ -19,9 +22,9 @@ public class DownloadingTask implements Runnable {
 
     private final String url;
     private final ExecutorService processingExecutor;
-    private final DocumentProcessor processor;
+    private final DocumentProcessor<?> processor;
 
-    public DownloadingTask(String url, ExecutorService processingExecutor, DocumentProcessor processor) {
+    public DownloadingTask(String url, ExecutorService processingExecutor, DocumentProcessor<?> processor) {
         this.url = url;
         this.processingExecutor = processingExecutor;
         this.processor = processor;
@@ -43,18 +46,25 @@ public class DownloadingTask implements Runnable {
     @Override
     public void run() {
         final Response response = downloadUrl();
-        processingExecutor.execute(() -> {
-            final Document doc = parse(response);
-            processor.process(doc);
-        });
+        processingExecutor.execute(() -> process(response, processor));
         delay();
     }
 
-    private Document parse(final Response response) {
-        try {
-            return response.parse();
-        } catch (final IOException e) {
-            throw new CrawlerException("Error parsing response for url " + url, e);
+    private <T> void process(final Response response, DocumentProcessor<T> proc) {
+        final ResponseConverter<T> converter = createConverter(proc);
+        final T doc = converter.convert(response);
+        proc.process(doc);
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> ResponseConverter<T> createConverter(DocumentProcessor<T> proc) {
+        switch (proc.getContentFormat()) {
+        case HTML:
+            return (ResponseConverter<T>) new HtmlDocumentConverter();
+        case XML:
+            return new XmlConverter<>(proc.getInputType());
+        default:
+            throw new CrawlerException("No converter defined for " + proc.getContentFormat());
         }
     }
 

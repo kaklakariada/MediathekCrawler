@@ -19,6 +19,6 @@ public class ZdfProgramDetailsProcessor extends DocumentProcessor<ZdfProgramDeta
 
     @Override
     public void process(ParsedUrl parsedUrl, ZdfProgramDetails doc) {
-        LOG.debug("Processing detail xml {}", parsedUrl);
+        LOG.debug("Processing detail xml from url {}: {}", parsedUrl, doc);
     }
 }

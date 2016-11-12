@@ -32,7 +32,7 @@ public class XmlConverter<T> extends ResponseConverter<T> {
 
             final JAXBContext jc = JAXBContext.newInstance(type);
             final Unmarshaller unmarshaller = jc.createUnmarshaller();
-            // unmarshaller.setEventHandler(event -> false);
+            unmarshaller.setEventHandler(event -> true);
             return unmarshaller;
         } catch (final JAXBException e) {
             throw new CrawlerException("Error creating unmarshaller for " + type.getName(), e);

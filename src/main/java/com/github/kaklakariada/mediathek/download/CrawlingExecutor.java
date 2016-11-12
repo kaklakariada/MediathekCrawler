@@ -14,11 +14,11 @@ import com.github.kaklakariada.mediathek.util.ParsedUrl;
 public class CrawlingExecutor {
     private static final Logger LOG = LoggerFactory.getLogger(CrawlingExecutor.class);
 
-    private final ExecutorService downloadingExecutor;
+    private final HostAwareDownloadExecutor downloadingExecutor;
     private final ExecutorService processingExecutor;
 
     public CrawlingExecutor() {
-        downloadingExecutor = Executors.newSingleThreadExecutor();
+        downloadingExecutor = new HostAwareDownloadExecutor();
         processingExecutor = Executors.newCachedThreadPool(new NamingThreadFactory("processor-{0}"));
     }
 
@@ -31,12 +31,12 @@ public class CrawlingExecutor {
         LOG.debug("Shutting down...");
         downloadingExecutor.shutdown();
         processingExecutor.shutdown();
+        downloadingExecutor.awaitTermination(5, TimeUnit.SECONDS);
         try {
-            downloadingExecutor.awaitTermination(5, TimeUnit.SECONDS);
             processingExecutor.awaitTermination(5, TimeUnit.SECONDS);
         } catch (final InterruptedException e) {
             LOG.warn("Exception shutting down executors", e);
         }
-        LOG.debug("Shut down.");
+        LOG.debug("Shutdown complete.");
     }
 }

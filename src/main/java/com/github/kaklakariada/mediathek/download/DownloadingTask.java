@@ -46,6 +46,10 @@ public class DownloadingTask implements Runnable {
         }
     }
 
+    public ParsedUrl getUrl() {
+        return url;
+    }
+
     @Override
     public void run() {
         final Response response = downloadUrl();

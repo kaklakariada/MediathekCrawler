@@ -19,7 +19,7 @@ public class CrawlingExecutor {
 
     public CrawlingExecutor() {
         downloadingExecutor = Executors.newSingleThreadExecutor();
-        processingExecutor = Executors.newSingleThreadExecutor();
+        processingExecutor = Executors.newCachedThreadPool(new NamingThreadFactory("processor-{0}"));
     }
 
     public void submit(TvChannel channel, String url, DocumentProcessor<?> processor) {

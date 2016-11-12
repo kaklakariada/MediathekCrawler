@@ -7,7 +7,8 @@
 	</appender>
 
     <logger name="edu.uci.ics.crawler4j.crawler.WebCrawler" level="info" />
-    <logger name="com.github.kaklakariada.mediathek.converter.XmlConverter" level="false" />
+    <logger name="com.github.kaklakariada.mediathek.converter.XmlConverter" level="debug" />
+    <logger name="com.github.kaklakariada.mediathek.download.DownloadingTask" level="trace" />
 	<root level="debug">
 		<appender-ref ref="STDOUT" />
 	</root>

@@ -3,6 +3,9 @@ package com.github.kaklakariada.mediathek;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.kaklakariada.mediathek.download.CrawlingExecutor;
+import com.github.kaklakariada.mediathek.processor.DocumentProcessor;
+
 public class CrawlerContext {
     private static final Logger LOG = LoggerFactory.getLogger(CrawlerContext.class);
     private final CrawlingExecutor executor;

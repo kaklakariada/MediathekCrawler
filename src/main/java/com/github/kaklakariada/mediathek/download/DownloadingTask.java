@@ -1,4 +1,4 @@
-package com.github.kaklakariada.mediathek;
+package com.github.kaklakariada.mediathek.download;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -11,9 +11,11 @@ import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.kaklakariada.mediathek.CrawlerException;
 import com.github.kaklakariada.mediathek.converter.HtmlDocumentConverter;
 import com.github.kaklakariada.mediathek.converter.ResponseConverter;
 import com.github.kaklakariada.mediathek.converter.XmlConverter;
+import com.github.kaklakariada.mediathek.processor.DocumentProcessor;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
 public class DownloadingTask implements Runnable {

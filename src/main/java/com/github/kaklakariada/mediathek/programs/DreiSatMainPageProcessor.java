@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.mediathek.CrawlerContext;
-import com.github.kaklakariada.mediathek.HtmlDocumentProcessor;
 import com.github.kaklakariada.mediathek.TvChannel;
+import com.github.kaklakariada.mediathek.processor.HtmlDocumentProcessor;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
 public class DreiSatMainPageProcessor extends HtmlDocumentProcessor {

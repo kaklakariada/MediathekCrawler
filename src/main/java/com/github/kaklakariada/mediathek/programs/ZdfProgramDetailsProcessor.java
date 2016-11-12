@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.mediathek.ContentFormat;
 import com.github.kaklakariada.mediathek.CrawlerContext;
-import com.github.kaklakariada.mediathek.DocumentProcessor;
 import com.github.kaklakariada.mediathek.TvChannel;
 import com.github.kaklakariada.mediathek.model.ZdfProgramDetails;
+import com.github.kaklakariada.mediathek.processor.DocumentProcessor;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
 public class ZdfProgramDetailsProcessor extends DocumentProcessor<ZdfProgramDetails> {

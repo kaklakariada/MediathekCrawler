@@ -1,5 +1,8 @@
-package com.github.kaklakariada.mediathek;
+package com.github.kaklakariada.mediathek.processor;
 
+import com.github.kaklakariada.mediathek.ContentFormat;
+import com.github.kaklakariada.mediathek.CrawlerContext;
+import com.github.kaklakariada.mediathek.TvChannel;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
 public abstract class DocumentProcessor<T> {

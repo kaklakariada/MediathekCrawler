@@ -1,26 +1,23 @@
 package com.github.kaklakariada.mediathek.model;
 
-import static java.util.stream.Collectors.toSet;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(namespace = "http://www.zdf.de/ZDFmediathek/v2", name = "response")
+@XmlRootElement(namespace = ZdfProgramDetails.NAMESPACE, name = "response")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ZdfProgramDetails {
 
+    static final String NAMESPACE = "http://www.zdf.de/ZDFmediathek/v2";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
     private static final ZoneId TIME_ZONE = ZoneId.of("Europe/Berlin");
 
-    @XmlElement(name = "video", required = true)
-    public Video video;
+    @XmlElement(namespace = NAMESPACE, name = "video")
+    private Video video;
 
     public Video getVideo() {
         return video;
@@ -31,28 +28,46 @@ public class ZdfProgramDetails {
         return "ZdfProgramDetails [video=" + video + "]";
     }
 
-    @XmlRootElement(name = "video")
     public static class Video {
-        @XmlElement(name = "information")
-        public Information info;
+
+        @XmlElement(namespace = NAMESPACE, name = "information")
+        private Information info;
+        @XmlElement(namespace = NAMESPACE, name = "details")
+        private Details details;
 
         public Information getInfo() {
             return info;
         }
 
+        public Details getDetails() {
+            return details;
+        }
+
         @Override
         public String toString() {
-            return "Video [info=" + info + "]";
+            return "Video [info=" + info + ", details=" + details + "]";
         }
     }
 
     public static class Information {
-        @XmlElement(name = "title")
-        public String title;
-        @XmlElement(name = "shortTitle")
-        public String shortTitle;
-        @XmlElement(name = "detail")
-        public String detail;
+        @XmlElement(namespace = NAMESPACE, name = "title")
+        private String title;
+        @XmlElement(namespace = NAMESPACE, name = "shortTitle")
+        private String shortTitle;
+        @XmlElement(namespace = NAMESPACE, name = "detail")
+        private String detail;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getShortTitle() {
+            return shortTitle;
+        }
+
+        public String getDetail() {
+            return detail;
+        }
 
         @Override
         public String toString() {
@@ -61,25 +76,25 @@ public class ZdfProgramDetails {
     }
 
     public static class Details {
-        @XmlElement(name = "assetId")
+        @XmlElement(namespace = NAMESPACE, name = "assetId")
         private String assetId;
-        @XmlElement(name = "originChannelTitle")
+        @XmlElement(namespace = NAMESPACE, name = "originChannelTitle")
         private String channelTitle;
-        @XmlElement(name = "channel")
+        @XmlElement(namespace = NAMESPACE, name = "channel")
         private String channel;
-        @XmlElement(name = "lengthSec")
+        @XmlElement(namespace = NAMESPACE, name = "lengthSec")
         private int lengthSec;
-        @XmlElement(name = "geolocation")
+        @XmlElement(namespace = NAMESPACE, name = "geolocation")
         private String geolocation;
-        @XmlElement(name = "basename")
+        @XmlElement(namespace = NAMESPACE, name = "basename")
         private String basename;
-        @XmlElement(name = "airtime")
+        @XmlElement(namespace = NAMESPACE, name = "airtime")
         private String airtime;
-        @XmlElement(name = "timetolive")
+        @XmlElement(namespace = NAMESPACE, name = "timetolive")
         private String timetolive;
-        @XmlElement(name = "onlineairtime")
+        @XmlElement(namespace = NAMESPACE, name = "onlineairtime")
         private String onlineairtime;
-        @XmlElement(name = "keywords")
+        @XmlElement(namespace = NAMESPACE, name = "keywords")
         private String keywords;
 
         public String getAssetId() {
@@ -94,8 +109,8 @@ public class ZdfProgramDetails {
             return channel;
         }
 
-        public Duration getDuration() {
-            return Duration.ofSeconds(lengthSec);
+        public int getLengthSec() {
+            return lengthSec;
         }
 
         public String getGeolocation() {
@@ -106,36 +121,28 @@ public class ZdfProgramDetails {
             return basename;
         }
 
-        public ZonedDateTime getAirtime() {
-            return parseDateTime(airtime);
+        public String getAirtime() {
+            return airtime;
         }
 
-        private static ZonedDateTime parseDateTime(String text) {
-            return LocalDateTime.parse(text, DATE_TIME_FORMATTER).atZone(TIME_ZONE);
+        public String getTimetolive() {
+            return timetolive;
         }
 
-        public ZonedDateTime getTimeToLive() {
-            return parseDateTime(timetolive);
+        public String getOnlineairtime() {
+            return onlineairtime;
         }
 
-        public ZonedDateTime getOnlineAirTime() {
-            return parseDateTime(onlineairtime);
-        }
-
-        public Set<String> getKeywords() {
-            return Arrays.stream(keywords.split(","))
-                    .filter(k -> !k.isEmpty())
-                    .map(String::trim)
-                    .collect(toSet());
+        public String getKeywords() {
+            return keywords;
         }
 
         @Override
         public String toString() {
-            return "Details [getAssetId()=" + getAssetId() + ", getChannelTitle()=" + getChannelTitle()
-                    + ", getChannel()=" + getChannel() + ", getDuration()=" + getDuration() + ", getGeolocation()="
-                    + getGeolocation() + ", getBasename()=" + getBasename() + ", getAirtime()=" + getAirtime()
-                    + ", getTimeToLive()=" + getTimeToLive() + ", getOnlineAirTime()=" + getOnlineAirTime()
-                    + ", getKeywords()=" + getKeywords() + "]";
+            return "Details [assetId=" + assetId + ", channelTitle=" + channelTitle + ", channel=" + channel
+                    + ", lengthSec=" + lengthSec + ", geolocation=" + geolocation + ", basename=" + basename
+                    + ", airtime=" + airtime + ", timetolive=" + timetolive + ", onlineairtime=" + onlineairtime
+                    + ", keywords=" + keywords + "]";
         }
     }
 }

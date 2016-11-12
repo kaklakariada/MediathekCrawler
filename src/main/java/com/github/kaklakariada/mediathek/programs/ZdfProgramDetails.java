@@ -1,4 +1,4 @@
-package com.github.kaklakariada.mediathek.model;
+package com.github.kaklakariada.mediathek.programs;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

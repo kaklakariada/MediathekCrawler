@@ -3,11 +3,13 @@ package com.github.kaklakariada.mediathek.programs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.kaklakariada.mediathek.ContentFormat;
 import com.github.kaklakariada.mediathek.CrawlerContext;
-import com.github.kaklakariada.mediathek.TvChannel;
-import com.github.kaklakariada.mediathek.model.ZdfProgramDetails;
+import com.github.kaklakariada.mediathek.converter.ContentFormat;
+import com.github.kaklakariada.mediathek.model.TvChannel;
+import com.github.kaklakariada.mediathek.model.TvProgram.Builder;
 import com.github.kaklakariada.mediathek.processor.DocumentProcessor;
+import com.github.kaklakariada.mediathek.programs.ZdfProgramDetails.Details;
+import com.github.kaklakariada.mediathek.programs.ZdfProgramDetails.Information;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
 public class ZdfProgramDetailsProcessor extends DocumentProcessor<ZdfProgramDetails> {
@@ -21,5 +23,13 @@ public class ZdfProgramDetailsProcessor extends DocumentProcessor<ZdfProgramDeta
     @Override
     public void process(ParsedUrl parsedUrl, ZdfProgramDetails doc) {
         LOG.debug("Processing detail xml from url {}: {}", parsedUrl, doc);
+        final Builder builder = newTvProgramBuilder();
+        final Details details = doc.getVideo().getDetails();
+        final Information info = doc.getVideo().getInfo();
+
+        builder
+                .title(info.getTitle())
+                .description(info.getDetail())
+                .airtime(details.getAirtime());
     }
 }

@@ -1,5 +1,6 @@
 package com.github.kaklakariada.mediathek;
 
+import com.github.kaklakariada.mediathek.model.TvChannel;
 import com.github.kaklakariada.mediathek.programs.DreiSatMainPageProcessor;
 
 public class Main {

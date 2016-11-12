@@ -6,13 +6,14 @@ import org.slf4j.LoggerFactory;
 import com.github.kaklakariada.mediathek.ContentFormat;
 import com.github.kaklakariada.mediathek.CrawlerContext;
 import com.github.kaklakariada.mediathek.DocumentProcessor;
+import com.github.kaklakariada.mediathek.TvChannel;
 import com.github.kaklakariada.mediathek.model.ZdfProgramDetails;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
 public class ZdfProgramDetailsProcessor extends DocumentProcessor<ZdfProgramDetails> {
 
-    public ZdfProgramDetailsProcessor(CrawlerContext context) {
-        super(context, ContentFormat.XML, ZdfProgramDetails.class);
+    public ZdfProgramDetailsProcessor(CrawlerContext context, TvChannel channel) {
+        super(context, channel, ContentFormat.XML, ZdfProgramDetails.class);
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(ZdfProgramDetailsProcessor.class);

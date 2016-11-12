@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.mediathek.CrawlerContext;
 import com.github.kaklakariada.mediathek.HtmlDocumentProcessor;
+import com.github.kaklakariada.mediathek.TvChannel;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
 public class DreiSatListPageProcessor extends HtmlDocumentProcessor {
@@ -19,7 +20,7 @@ public class DreiSatListPageProcessor extends HtmlDocumentProcessor {
     private final int pageNumber;
 
     public DreiSatListPageProcessor(CrawlerContext context, int pageNumber) {
-        super(context);
+        super(context, TvChannel.DREI_SAT);
         this.pageNumber = pageNumber;
     }
 
@@ -38,7 +39,7 @@ public class DreiSatListPageProcessor extends HtmlDocumentProcessor {
         objectIds.stream()
                 .limit(context.getConfig().getIterationLimit())
                 .map(objId -> "http://www.3sat.de/mediathek/xmlservice/v2/web/beitragsDetails?ak=web&id=" + objId)
-                .forEach(url -> context.submit(url, new ZdfProgramDetailsProcessor(context)));
+                .forEach(url -> context.submit(url, new ZdfProgramDetailsProcessor(context, getChannel())));
 
         submitNextPageLink(doc);
     }

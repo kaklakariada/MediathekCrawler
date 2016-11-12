@@ -20,8 +20,9 @@ public class CrawlingExecutor {
         processingExecutor = Executors.newSingleThreadExecutor();
     }
 
-    public void submit(String url, DocumentProcessor<?> processor) {
-        downloadingExecutor.execute(new DownloadingTask(ParsedUrl.parse(url), processingExecutor, processor));
+    public void submit(TvChannel channel, String url, DocumentProcessor<?> processor) {
+        final ParsedUrl parsedUrl = ParsedUrl.parse(url);
+        downloadingExecutor.execute(new DownloadingTask(parsedUrl, processingExecutor, processor));
     }
 
     public void shutdown() {

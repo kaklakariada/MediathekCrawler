@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.mediathek.CrawlerContext;
 import com.github.kaklakariada.mediathek.HtmlDocumentProcessor;
+import com.github.kaklakariada.mediathek.TvChannel;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
 public class DreiSatMainPageProcessor extends HtmlDocumentProcessor {
@@ -14,7 +15,7 @@ public class DreiSatMainPageProcessor extends HtmlDocumentProcessor {
     private static final Logger LOG = LoggerFactory.getLogger(DreiSatMainPageProcessor.class);
 
     public DreiSatMainPageProcessor(CrawlerContext context) {
-        super(context);
+        super(context, TvChannel.DREI_SAT);
     }
 
     @Override

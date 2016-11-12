@@ -37,7 +37,7 @@ public class DownloadingTask implements Runnable {
         try {
             final Connection connection = Jsoup.connect(url.toString());
             final Response response = connection.execute();
-            LOG.debug("Downloaded {} in {}", url, Duration.between(start, Instant.now()));
+            LOG.trace("Downloaded {} in {}", url, Duration.between(start, Instant.now()));
             return response;
         } catch (final IOException e) {
             throw new CrawlerException("Error downloading url " + url, e);

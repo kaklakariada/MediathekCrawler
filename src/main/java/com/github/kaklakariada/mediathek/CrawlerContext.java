@@ -14,7 +14,16 @@ public class CrawlerContext {
     }
 
     public void submit(String url, DocumentProcessor<?> processor) {
-        executor.submit(url, processor);
+        final TvChannel channel = processor.getChannel();
+        if (channel == null) {
+            throw new IllegalStateException(
+                    "No channel defined for processor " + processor + " of type " + processor.getClass().getName());
+        }
+        this.submit(channel, url, processor);
+    }
+
+    public void submit(TvChannel channel, String url, DocumentProcessor<?> processor) {
+        executor.submit(channel, url, processor);
     }
 
     public Config getConfig() {

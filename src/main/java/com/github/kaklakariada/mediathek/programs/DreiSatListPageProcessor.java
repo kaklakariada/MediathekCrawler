@@ -39,7 +39,8 @@ public class DreiSatListPageProcessor extends HtmlDocumentProcessor {
         objectIds.stream()
                 .limit(context.getConfig().getIterationLimit())
                 .map(objId -> "http://www.3sat.de/mediathek/xmlservice/v2/web/beitragsDetails?ak=web&id=" + objId)
-                .forEach(url -> context.submit(url, new ZdfProgramDetailsXmlProcessor(context, getChannel())));
+                .forEach(url -> context.getExecutor().executeDownload(url,
+                        new ZdfProgramDetailsXmlProcessor(context, getChannel())));
 
         submitNextPageLink(doc);
     }
@@ -56,7 +57,8 @@ public class DreiSatListPageProcessor extends HtmlDocumentProcessor {
                 .findFirst();
         if (nextPageUrl.isPresent()) {
             LOG.debug("Link to next page {} found: {}", pageNumber + 1, nextPageUrl.get());
-            context.submit(nextPageUrl.get(), new DreiSatListPageProcessor(context, pageNumber + 1));
+            context.getExecutor().executeDownload(nextPageUrl.get(),
+                    new DreiSatListPageProcessor(context, pageNumber + 1));
         }
     }
 }

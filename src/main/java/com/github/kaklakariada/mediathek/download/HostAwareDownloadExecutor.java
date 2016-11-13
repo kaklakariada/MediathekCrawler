@@ -17,7 +17,7 @@ class HostAwareDownloadExecutor {
 
     private final Map<String, ExecutorService> executors = new HashMap<>();
 
-    void execute(DownloadingTask downloadingTask) {
+    void execute(UrlTask downloadingTask) {
         getExecutor(downloadingTask.getUrl()).execute(downloadingTask);
     }
 
@@ -32,7 +32,7 @@ class HostAwareDownloadExecutor {
 
     private ExecutorService createExecutor(String host) {
         LOG.debug("Create new download executor for host {}", host);
-        return Executors.newSingleThreadExecutor(new NamingThreadFactory("download-" + host + "-{0}"));
+        return Executors.newSingleThreadExecutor(new NamingThreadFactory("dl-" + host));
     }
 
     void shutdown() {

@@ -35,6 +35,7 @@ public class ZdfProgramDetailsXmlProcessor extends DocumentProcessor<ZdfProgramD
                 .websiteUrl(websiteUrl);
 
         final String jsonUrl = "https://www.zdf.de/ptmd/vod/3sat/" + details.getBasename() + "/1";
-        context.submit(jsonUrl, new ZdfProgramDetailsJsonProcessor(context, getChannel(), programBuilder));
+        context.getExecutor().executeDownload(jsonUrl,
+                new ZdfProgramDetailsJsonProcessor(context, getChannel(), programBuilder));
     }
 }

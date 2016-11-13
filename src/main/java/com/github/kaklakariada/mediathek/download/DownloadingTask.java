@@ -15,10 +15,11 @@ import com.github.kaklakariada.mediathek.CrawlerException;
 import com.github.kaklakariada.mediathek.converter.Converter;
 import com.github.kaklakariada.mediathek.converter.ConverterFactory;
 import com.github.kaklakariada.mediathek.converter.ConverterInput;
+import com.github.kaklakariada.mediathek.model.TvChannel;
 import com.github.kaklakariada.mediathek.processor.DocumentProcessor;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
-class DownloadingTask implements Runnable {
+class DownloadingTask implements UrlTask {
     private static final Logger LOG = LoggerFactory.getLogger(DownloadingTask.class);
 
     private static final int THROTTLING_DELAY_MILLIS = 200;
@@ -55,8 +56,14 @@ class DownloadingTask implements Runnable {
         return content;
     }
 
+    @Override
     public ParsedUrl getUrl() {
         return url;
+    }
+
+    @Override
+    public TvChannel getChannel() {
+        return processor.getChannel();
     }
 
     @Override

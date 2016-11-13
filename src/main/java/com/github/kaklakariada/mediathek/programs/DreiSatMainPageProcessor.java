@@ -27,6 +27,6 @@ public class DreiSatMainPageProcessor extends HtmlDocumentProcessor {
                 .limit(context.getConfig().getIterationLimit())
                 .map(elem -> elem.attr("href"))
                 .map(url -> url + "&type=1")
-                .forEach(url -> context.submit(url, new DreiSatListPageProcessor(context, 0)));
+                .forEach(url -> context.getExecutor().executeDownload(url, new DreiSatListPageProcessor(context, 0)));
     }
 }

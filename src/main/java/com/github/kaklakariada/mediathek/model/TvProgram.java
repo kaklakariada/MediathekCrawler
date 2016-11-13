@@ -16,15 +16,15 @@ public class TvProgram {
     private final DownloadUrls downloadUrls;
 
     public TvProgram(Builder b) {
-        this.channel = Objects.requireNonNull(b.channel);
-        this.title = Objects.requireNonNull(b.title);
-        this.topic = Objects.requireNonNull(b.topic);
-        this.description = Objects.requireNonNull(b.description);
-        this.airtime = Objects.requireNonNull(b.airtime);
-        this.duration = Objects.requireNonNull(b.duration);
-        this.websiteUrl = Objects.requireNonNull(b.websiteUrl);
+        this.channel = Objects.requireNonNull(b.channel, "channel");
+        this.title = Objects.requireNonNull(b.title, "title");
+        this.topic = b.topic;
+        this.description = Objects.requireNonNull(b.description, "description");
+        this.airtime = Objects.requireNonNull(b.airtime, "airtime");
+        this.duration = Objects.requireNonNull(b.duration, "duration");
+        this.websiteUrl = Objects.requireNonNull(b.websiteUrl, "websiteUrl");
         this.captionUrl = b.captionUrl;
-        this.downloadUrls = Objects.requireNonNull(b.downloadUrls);
+        this.downloadUrls = b.downloadUrlsBuilder.build();
     }
 
     public TvChannel getChannel() {
@@ -83,7 +83,8 @@ public class TvProgram {
         private Duration duration;
         private String websiteUrl;
         private String captionUrl;
-        private DownloadUrls downloadUrls;
+        private final com.github.kaklakariada.mediathek.model.DownloadUrls.Builder downloadUrlsBuilder = DownloadUrls
+                .newBuilder();
 
         private Builder() {
         }
@@ -128,8 +129,8 @@ public class TvProgram {
             return this;
         }
 
-        public Builder downloadUrls(DownloadUrls downloadUrls) {
-            this.downloadUrls = downloadUrls;
+        public Builder addDownloadUrl(Resolution resolution, String url, FileSize fileSize) {
+            this.downloadUrlsBuilder.addUrl(resolution, url, fileSize);
             return this;
         }
 

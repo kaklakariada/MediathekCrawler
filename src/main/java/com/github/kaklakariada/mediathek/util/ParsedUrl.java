@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toList;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.AbstractMap.SimpleImmutableEntry;
@@ -39,9 +40,17 @@ public class ParsedUrl {
 
     public InputStream getContent() {
         try {
-            return (InputStream) url.getContent();
+            return openConnection().getInputStream();
         } catch (final IOException e) {
             throw new CrawlerException("Error getting content from url " + url, e);
+        }
+    }
+
+    public HttpURLConnection openConnection() {
+        try {
+            return (HttpURLConnection) url.openConnection();
+        } catch (final IOException e) {
+            throw new CrawlerException("Error opening connection to url " + url, e);
         }
     }
 

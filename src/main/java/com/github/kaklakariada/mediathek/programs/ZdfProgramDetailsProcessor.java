@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import com.github.kaklakariada.mediathek.CrawlerContext;
 import com.github.kaklakariada.mediathek.converter.ContentFormat;
 import com.github.kaklakariada.mediathek.model.TvChannel;
-import com.github.kaklakariada.mediathek.model.TvProgram.Builder;
 import com.github.kaklakariada.mediathek.processor.DocumentProcessor;
 import com.github.kaklakariada.mediathek.programs.ZdfProgramDetails.Details;
 import com.github.kaklakariada.mediathek.programs.ZdfProgramDetails.Information;
@@ -23,13 +22,16 @@ public class ZdfProgramDetailsProcessor extends DocumentProcessor<ZdfProgramDeta
     @Override
     public void process(ParsedUrl parsedUrl, ZdfProgramDetails doc) {
         LOG.debug("Processing detail xml from url {}: {}", parsedUrl, doc);
-        final Builder builder = newTvProgramBuilder();
         final Details details = doc.getVideo().getDetails();
         final Information info = doc.getVideo().getInfo();
 
-        builder
+        final String websiteUrl = details.getCurrentPage().startsWith("//") ? "http" + details.getCurrentPage()
+                : details.getCurrentPage();
+        newTvProgramBuilder()
                 .title(info.getTitle())
                 .description(info.getDetail())
-                .airtime(details.getAirtime());
+                .airtime(details.getAirtime())
+                .duration(details.getDuration())
+                .websiteUrl(websiteUrl);
     }
 }

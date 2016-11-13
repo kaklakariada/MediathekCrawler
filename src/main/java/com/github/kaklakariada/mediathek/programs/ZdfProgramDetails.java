@@ -93,6 +93,9 @@ public class ZdfProgramDetails {
         @XmlJavaTypeAdapter(SecondsDurationXmlAdapter.class)
         private Duration duration;
 
+        @XmlElement(namespace = NAMESPACE, name = "currentPage")
+        private String currentPage;
+
         @XmlElement(namespace = NAMESPACE, name = "geolocation")
         private String geolocation;
 
@@ -131,6 +134,10 @@ public class ZdfProgramDetails {
             return duration;
         }
 
+        public String getCurrentPage() {
+            return currentPage;
+        }
+
         public String getGeolocation() {
             return geolocation;
         }
@@ -158,9 +165,9 @@ public class ZdfProgramDetails {
         @Override
         public String toString() {
             return "Details [assetId=" + assetId + ", channelTitle=" + channelTitle + ", channel=" + channel
-                    + ", duration=" + duration + ", geolocation=" + geolocation + ", basename=" + basename
-                    + ", airtime=" + airtime + ", timetolive=" + timetolive + ", onlineairtime=" + onlineairtime
-                    + ", keywords=" + keywords + "]";
+                    + ", duration=" + duration + ", currentPage=" + currentPage + ", geolocation=" + geolocation
+                    + ", basename=" + basename + ", airtime=" + airtime + ", timetolive=" + timetolive
+                    + ", onlineairtime=" + onlineairtime + ", keywords=" + keywords + "]";
         }
     }
 }

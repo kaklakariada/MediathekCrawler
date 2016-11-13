@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response xmlns="http://www.zdf.de/ZDFmediathek/v2">
+<status>
+<statuscode>ok</statuscode>
+</status>
+<video>
+<type>video</type>
+<context>
+<contextLink>//www.3sat.de/page/?source=/index/129295/html</contextLink>
+</context>
+<teaserimages>
+<teaserimage alt="Standbild" key="75x52">//www.3sat.de/mediaplayer/stills/62877_75x52.jpg</teaserimage>
+<teaserimage alt="Standbild" key="476x268">//www.3sat.de/mediaplayer/stills/62877_476x268.jpg</teaserimage>
+<teaserimage alt="Standbild" key="298x168">//www.3sat.de/mediaplayer/stills/62877_298x168.jpg</teaserimage>
+<teaserimage alt="Standbild" key="404x227">//www.3sat.de/mediaplayer/stills/62877_404x227.jpg</teaserimage>
+<teaserimage alt="Standbild" key="276x155">//www.3sat.de/mediaplayer/stills/62877_276x155.jpg</teaserimage>
+<teaserimage alt="Standbild" key="644x363">//www.3sat.de/mediaplayer/stills/62877_644x363.jpg</teaserimage>
+<teaserimage alt="Standbild" key="476x176">//www.3sat.de/mediaplayer/stills/62877_476x176.jpg</teaserimage>
+<teaserimage alt="Standbild" key="144x81">//www.3sat.de/mediaplayer/stills/62877_144x81.jpg</teaserimage>
+<teaserimage alt="Standbild" key="485x273">//www.3sat.de/mediaplayer/stills/62877_485x273.jpg</teaserimage>
+<teaserimage alt="Standbild" key="94x65">//www.3sat.de/mediaplayer/stills/62877_94x65.jpg</teaserimage>
+<teaserimage alt="Standbild" key="72x54">//www.3sat.de/mediaplayer/stills/62877_72x54.jpg</teaserimage>
+<teaserimage alt="Standbild" key="173x120">//www.3sat.de/mediaplayer/stills/62877_173x120.jpg</teaserimage>
+<teaserimage alt="Standbild" key="236x133">//www.3sat.de/mediaplayer/stills/62877_236x133.jpg</teaserimage>
+<teaserimage alt="Standbild" key="116x88">//www.3sat.de/mediaplayer/stills/62877_116x88.jpg</teaserimage>
+<teaserimage alt="Standbild" key="116x54">//www.3sat.de/mediaplayer/stills/62877_116x54.jpg</teaserimage>
+<teaserimage alt="Standbild" key="672x378">//www.3sat.de/mediaplayer/stills/62877_672x378.jpg</teaserimage>
+<teaserimage alt="Standbild" key="946x532">//www.3sat.de/mediaplayer/stills/62877_946x532.jpg</teaserimage>
+</teaserimages>
+<information>
+<title>auslandsjournal extra vom 11.11.2016</title>
+<shortTitle>auslandsjournal extra vom 11.11.2016</shortTitle>
+<detail>Diese Woche berichtet das auslandsjournal extra über Reaktionen auf die US-Wahl, die Außenpolitik unter Donald Trump und Kanadas beliebten Premierminister Justin Trudeau.</detail>
+</information>
+<details>
+<assetId>62877</assetId>
+<assetVersion>1</assetVersion>
+<originChannelId>100000008</originChannelId>
+<originChannelTitle>auslandsjournal extra</originChannelTitle>
+<otherChannels></otherChannels>
+<channel>3sat</channel>
+<channelLogoSmall>//www.3sat.de/mediaplayer/contentblob/logos/3sat_91x17.jpg</channelLogoSmall>
+<length>00:38:36.000</length>
+<lengthSec>2316</lengthSec>
+<duration>P0Y0M0DT0H38M36.000S</duration>
+<vcmsUrl>//www.3sat.de/mediathek/?obj=62877</vcmsUrl>
+<extCmsId/>
+<extDataType/>
+<fsk>0</fsk>
+<currentPage>//www.3sat.de/mediathek/?obj=62877</currentPage>
+<geolocation>none</geolocation>
+<programProdNumber>00000000</programProdNumber>
+<basename>161111_sendung_ajextra</basename>
+<streamVersion>1</streamVersion>
+<nurOnline>undefined</nurOnline>
+<onlineFassung>undefined</onlineFassung>
+<ganzeSendung>true</ganzeSendung>
+<trailerTyp>content</trailerTyp>
+<airtime>11.11.2016 21:30</airtime>
+<timetolive>10.11.2017 23:59</timetolive>
+<onlineairtime>11.11.2016 23:25</onlineairtime>
+<zuerstOnline>false</zuerstOnline>
+<hasCaption>false</hasCaption>
+<hasAudioDescription>false</hasAudioDescription>
+<socialBookmarks>false</socialBookmarks>
+<keywords>auslandsjournal_extra</keywords>
+</details>
+<copyright/>
+<webtipp/>
+<linkedTeasers/>
+<externalImage/>
+</video>
+</response>

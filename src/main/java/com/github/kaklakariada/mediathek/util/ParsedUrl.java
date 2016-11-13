@@ -18,9 +18,19 @@ public class ParsedUrl {
     private final URL url;
     private final Map<String, List<String>> queryParams;
 
-    public ParsedUrl(URL url, Map<String, List<String>> queryArgs) {
+    private ParsedUrl(URL url, Map<String, List<String>> queryArgs) {
         this.url = url;
         this.queryParams = queryArgs;
+    }
+
+    public static ParsedUrl parse(String urlString) {
+        final URL url = createUrl(urlString);
+        return parse(url);
+    }
+
+    public static ParsedUrl parse(final URL url) {
+        final Map<String, List<String>> queryArgs = splitQuery(url.getQuery());
+        return new ParsedUrl(url, queryArgs);
     }
 
     public String getParam(String paramName) {
@@ -43,12 +53,6 @@ public class ParsedUrl {
 
     public String getHost() {
         return url.getHost();
-    }
-
-    public static ParsedUrl parse(String urlString) {
-        final URL url = createUrl(urlString);
-        final Map<String, List<String>> queryArgs = splitQuery(url.getQuery());
-        return new ParsedUrl(url, queryArgs);
     }
 
     private static URL createUrl(String urlString) {

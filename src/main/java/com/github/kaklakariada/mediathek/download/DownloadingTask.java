@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.mediathek.CrawlerException;
+import com.github.kaklakariada.mediathek.converter.ConverterInput;
 import com.github.kaklakariada.mediathek.converter.HtmlDocumentConverter;
 import com.github.kaklakariada.mediathek.converter.ResponseConverter;
 import com.github.kaklakariada.mediathek.converter.XmlConverter;
@@ -59,7 +60,8 @@ public class DownloadingTask implements Runnable {
 
     private <T> void process(final Response response, DocumentProcessor<T> proc) {
         final ResponseConverter<T> converter = createConverter(proc);
-        final T doc = converter.convert(response);
+        final ConverterInput converterInput = new ConverterInput(response.body(), response.url());
+        final T doc = converter.convert(converterInput);
         proc.process(url, doc);
     }
 

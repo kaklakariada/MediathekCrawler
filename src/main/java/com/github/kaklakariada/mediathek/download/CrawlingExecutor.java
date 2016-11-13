@@ -1,5 +1,7 @@
 package com.github.kaklakariada.mediathek.download;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentHashMap.KeySetView;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -19,16 +21,28 @@ public class CrawlingExecutor {
     private final HostAwareDownloadExecutor downloadingExecutor;
     private final ExecutorService processingExecutor;
 
+    private final KeySetView<String, Boolean> vistedUrls;
+
     public CrawlingExecutor() {
         downloadingExecutor = new HostAwareDownloadExecutor();
         final int maxNumberOfThreads = Runtime.getRuntime().availableProcessors();
         LOG.info("Using processing thread pool with {} threads", maxNumberOfThreads);
         processingExecutor = Executors.newFixedThreadPool(maxNumberOfThreads, new NamingThreadFactory("processor-{0}"));
+        vistedUrls = ConcurrentHashMap.newKeySet();
     }
 
     public void executeDownload(String url, DocumentProcessor<?> processor) {
-        final ParsedUrl parsedUrl = ParsedUrl.parse(url);
-        execute(new DownloadingTask(parsedUrl, processingExecutor, processor));
+        if (!alreadyProcessed(url)) {
+            execute(new DownloadingTask(ParsedUrl.parse(url), processingExecutor, processor));
+        }
+    }
+
+    private boolean alreadyProcessed(String url) {
+        final boolean alreadyProcessed = !vistedUrls.add(url);
+        if (alreadyProcessed) {
+            LOG.debug("URL {} was already processed: ignore it now.", url);
+        }
+        return alreadyProcessed;
     }
 
     public void executeGetContentLength(TvChannel channel, String url, Consumer<FileSize> callback) {

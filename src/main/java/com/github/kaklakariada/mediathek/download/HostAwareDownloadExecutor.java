@@ -18,7 +18,7 @@ public class HostAwareDownloadExecutor {
     private final Map<String, ExecutorService> executors = new HashMap<>();
 
     public void execute(DownloadingTask downloadingTask) {
-        getExecutor(downloadingTask.getUrl()).submit(downloadingTask);
+        getExecutor(downloadingTask.getUrl()).execute(downloadingTask);
     }
 
     private ExecutorService getExecutor(ParsedUrl url) {

@@ -41,7 +41,7 @@ public class FileSizeTask implements UrlTask {
                 throw new CrawlerException("Got invalid content length " + contentLength + " for url " + url);
             }
             final FileSize fileSize = FileSize.ofBytes(contentLength);
-            LOG.debug("Got file size {} for url {}", fileSize, url);
+            LOG.trace("Got file size {} for url {}", fileSize, url);
             processingExecutor.execute(() -> callback.accept(fileSize));
         } finally {
             conn.disconnect();

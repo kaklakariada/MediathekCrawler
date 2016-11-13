@@ -18,6 +18,11 @@ public class DownloadUrls {
         return new Builder();
     }
 
+    @Override
+    public String toString() {
+        return "DownloadUrls [urls=" + urls + "]";
+    }
+
     public static class DownloadUrl {
         private final String url;
         private final FileSize size;
@@ -33,6 +38,11 @@ public class DownloadUrls {
 
         public FileSize getSize() {
             return size;
+        }
+
+        @Override
+        public String toString() {
+            return "DownloadUrl [url=" + url + ", size=" + size + "]";
         }
     }
 

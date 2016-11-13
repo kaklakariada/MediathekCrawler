@@ -1,19 +1,20 @@
 package com.github.kaklakariada.mediathek.download;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.ExecutorService;
 
-import org.jsoup.Connection;
-import org.jsoup.Connection.Response;
-import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.mediathek.CrawlerException;
 import com.github.kaklakariada.mediathek.converter.ConverterInput;
 import com.github.kaklakariada.mediathek.converter.HtmlDocumentConverter;
+import com.github.kaklakariada.mediathek.converter.JsonConverter;
 import com.github.kaklakariada.mediathek.converter.ResponseConverter;
 import com.github.kaklakariada.mediathek.converter.XmlConverter;
 import com.github.kaklakariada.mediathek.processor.DocumentProcessor;
@@ -34,17 +35,25 @@ public class DownloadingTask implements Runnable {
         this.processor = processor;
     }
 
-    public Response downloadUrl() {
+    private ConverterInput downloadUrl() {
         LOG.trace("Downloading url {}...", url);
         final Instant start = Instant.now();
-        try {
-            final Connection connection = Jsoup.connect(url.toString());
-            final Response response = connection.execute();
-            LOG.trace("Downloaded {} in {}", url, Duration.between(start, Instant.now()));
-            return response;
+        final StringBuilder b = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(url.getContent(), StandardCharsets.UTF_8))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                b.append(line).append('\n');
+            }
         } catch (final IOException e) {
-            throw new CrawlerException("Error downloading url " + url, e);
+            throw new CrawlerException("Error reading from url " + url, e);
         }
+
+        // final Connection connection = Jsoup.connect(url.toString());
+        // final Response response = connection.execute();
+        final ConverterInput converterInput = new ConverterInput(b.toString(), url);
+        LOG.trace("Downloaded {} in {}", url, Duration.between(start, Instant.now()));
+        return converterInput;
     }
 
     public ParsedUrl getUrl() {
@@ -53,14 +62,13 @@ public class DownloadingTask implements Runnable {
 
     @Override
     public void run() {
-        final Response response = downloadUrl();
+        final ConverterInput response = downloadUrl();
         processingExecutor.execute(() -> process(response, processor));
         delay();
     }
 
-    private <T> void process(final Response response, DocumentProcessor<T> proc) {
+    private <T> void process(final ConverterInput converterInput, DocumentProcessor<T> proc) {
         final ResponseConverter<T> converter = createConverter(proc);
-        final ConverterInput converterInput = new ConverterInput(response.body(), response.url());
         final T doc = converter.convert(converterInput);
         proc.process(url, doc);
     }
@@ -72,6 +80,8 @@ public class DownloadingTask implements Runnable {
             return (ResponseConverter<T>) new HtmlDocumentConverter();
         case XML:
             return new XmlConverter<>(proc.getInputType());
+        case JSON:
+            return new JsonConverter<>(proc.getInputType());
         default:
             throw new CrawlerException("No converter defined for " + proc.getContentFormat());
         }

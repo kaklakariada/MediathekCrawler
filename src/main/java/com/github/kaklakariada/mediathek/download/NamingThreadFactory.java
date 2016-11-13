@@ -19,6 +19,7 @@ public class NamingThreadFactory implements ThreadFactory {
     @Override
     public Thread newThread(Runnable r) {
         final Thread t = new Thread(group, r, getNextThreadName(), 0);
+
         if (t.isDaemon()) {
             t.setDaemon(false);
         }

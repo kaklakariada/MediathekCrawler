@@ -3,6 +3,8 @@ package com.github.kaklakariada.mediathek.util;
 import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.AbstractMap.SimpleImmutableEntry;
@@ -12,6 +14,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import com.github.kaklakariada.mediathek.CrawlerException;
 
 public class ParsedUrl {
 
@@ -31,6 +35,14 @@ public class ParsedUrl {
     public static ParsedUrl parse(final URL url) {
         final Map<String, List<String>> queryArgs = splitQuery(url.getQuery());
         return new ParsedUrl(url, queryArgs);
+    }
+
+    public InputStream getContent() {
+        try {
+            return (InputStream) url.getContent();
+        } catch (final IOException e) {
+            throw new CrawlerException("Error getting content from url " + url, e);
+        }
     }
 
     public String getParam(String paramName) {

@@ -1,0 +1,449 @@
+{
+    "basename" : "161111_sendung_ajextra",
+    "version" : "1",
+    "mandant" : "3sat",
+    "formitaeten" : [
+        {
+            "type" : "h264_aac_mp4_http_na_na",
+            "quality" : "high",
+            "facets" : [
+                "hbbtv"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://tvdl.zdf.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_2328k_p35v13.mp4"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_http_na_na",
+            "quality" : "high",
+            "facets" : [
+                "restriction_useragent"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://rodl.zdf.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_476k_p9v13.mp4"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_http_na_na",
+            "quality" : "high",
+            "facets" : [
+                "progressive"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://nrodl.zdf.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_476k_p9v13.mp4"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_http_na_na",
+            "quality" : "veryhigh",
+            "facets" : [
+                "hbbtv"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://tvdl.zdf.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_3328k_p36v13.mp4"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_http_na_na",
+            "quality" : "veryhigh",
+            "facets" : [
+                "restriction_useragent"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://rodl.zdf.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_1496k_p13v13.mp4"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_http_na_na",
+            "quality" : "veryhigh",
+            "facets" : [
+                "progressive"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://nrodl.zdf.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_1496k_p13v13.mp4"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_http_na_na",
+            "quality" : "low",
+            "facets" : [
+                "progressive"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://nrodl.zdf.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_229k_p7v13.mp4"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "vp8_vorbis_webm_http_na_na",
+            "quality" : "high",
+            "facets" : [
+                "progressive"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://nrodl.zdf.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_776k_p17v13.webm"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "vp8_vorbis_webm_http_na_na",
+            "quality" : "veryhigh",
+            "facets" : [
+                "progressive"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://nrodl.zdf.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_1496k_p18v13.webm"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "vp8_vorbis_webm_http_na_na",
+            "quality" : "low",
+            "facets" : [
+                "progressive"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://nrodl.zdf.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_282k_p16v13.webm"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_f4f_http_f4m_http",
+            "quality" : "high",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://zdf_hdflash_none-f.akamaihd.net/z/meta-files/3sat/smil/f4m/300/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra.smil/manifest.f4m"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_f4f_http_f4m_http",
+            "quality" : "med",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://zdf_hdflash_none-f.akamaihd.net/z/meta-files/3sat/smil/f4m/200/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra.smil/manifest.f4m"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_rtmp_smil_http",
+            "quality" : "high",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://fstreaming.zdf.de/3sat/300/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra.smil"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_rtmp_smil_http",
+            "quality" : "high",
+            "facets" : [
+                "internal_playout"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://fstreaming.zdf.de/3sat/300/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra.smil"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_rtmp_smil_http",
+            "quality" : "veryhigh",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://fstreaming.zdf.de/3sat/veryhigh/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra.smil"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_rtmp_smil_http",
+            "quality" : "veryhigh",
+            "facets" : [
+                "internal_playout"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://fstreaming.zdf.de/3sat/veryhigh/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra.smil"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_rtmp_smil_http",
+            "quality" : "low",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://fstreaming.zdf.de/3sat/56/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra.smil"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_rtmp_smil_http",
+            "quality" : "low",
+            "facets" : [
+                "internal_playout"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://fstreaming.zdf.de/3sat/56/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra.smil"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_3gp_http_na_na",
+            "quality" : "high",
+            "facets" : [
+                "restriction_useragent"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://rodl.zdf.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_282k_p4v13.3gp"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_3gp_http_na_na",
+            "quality" : "veryhigh",
+            "facets" : [
+                "restriction_useragent"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://rodl.zdf.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_476k_p5v13.3gp"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_3gp_http_na_na",
+            "quality" : "low",
+            "facets" : [
+                "restriction_useragent"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://rodl.zdf.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_164k_p2v13.3gp"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_3gp_http_na_na",
+            "quality" : "med",
+            "facets" : [
+                "restriction_useragent"
+            ],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://rodl.zdf.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_229k_p3v13.3gp"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_rtmp_zdfmeta_http",
+            "quality" : "high",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://fstreaming.zdf.de/3sat/300/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra.meta"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_rtmp_zdfmeta_http",
+            "quality" : "veryhigh",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://fstreaming.zdf.de/3sat/veryhigh/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra.meta"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_rtmp_zdfmeta_http",
+            "quality" : "low",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://fstreaming.zdf.de/3sat/56/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra.meta"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_mp4_rtmp_zdfmeta_http",
+            "quality" : "hd",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://fstreaming.zdf.de/3sat/hd/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra.meta"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_ts_http_m3u8_http",
+            "quality" : "high",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://zdf-hdios-none-i.zdf.de/i/meta-files/3sat/smil/m3u8/300/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra.smil/master.m3u8"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_ts_http_m3u8_http",
+            "quality" : "med",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "http://zdf-hdios-none-i.zdf.de/i/meta-files/3sat/smil/m3u8/200/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra.smil/master.m3u8"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_3gp_rtsp_na_na",
+            "quality" : "high",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "rtsp://a1966.v1252936.c125293.g.vq.akamaistream.net/7/1966/125293/v0001/mp4.od.origin.zdf.de.gl-systemhaus.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_282k_p4v13.3gp"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_3gp_rtsp_na_na",
+            "quality" : "veryhigh",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "rtsp://a1966.v1252936.c125293.g.vq.akamaistream.net/7/1966/125293/v0001/mp4.od.origin.zdf.de.gl-systemhaus.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_476k_p5v13.3gp"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_3gp_rtsp_na_na",
+            "quality" : "low",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "rtsp://a1966.v1252936.c125293.g.vq.akamaistream.net/7/1966/125293/v0001/mp4.od.origin.zdf.de.gl-systemhaus.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_164k_p2v13.3gp"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_3gp_rtsp_na_na",
+            "quality" : "med",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "rtsp://a1966.v1252936.c125293.g.vq.akamaistream.net/7/1966/125293/v0001/mp4.od.origin.zdf.de.gl-systemhaus.de/none/3sat/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_229k_p3v13.3gp"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_ts_https_m3u8_https",
+            "quality" : "high",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "https://zdfvodnone-vh.akamaihd.net/i/meta-files/3sat/smil/m3u8/300/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_https.smil/master.m3u8"
+                    ]
+                }
+            }
+        },
+        {
+            "type" : "h264_aac_ts_https_m3u8_https",
+            "quality" : "med",
+            "facets" : [],
+            "playouts" : {
+                "main" : {
+                    "uris" : [ 
+                        "https://zdfvodnone-vh.akamaihd.net/i/meta-files/3sat/smil/m3u8/200/16/11/161111_sendung_ajextra/1/161111_sendung_ajextra_https.smil/master.m3u8"
+                    ]
+                }
+            }
+        }
+    ]
+}

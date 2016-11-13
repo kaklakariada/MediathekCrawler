@@ -14,9 +14,9 @@ import com.github.kaklakariada.mediathek.converter.xml.LocalDateTimeXmlAdapter;
 import com.github.kaklakariada.mediathek.converter.xml.SecondsDurationXmlAdapter;
 import com.github.kaklakariada.mediathek.converter.xml.StringListXmlAdapter;
 
-@XmlRootElement(namespace = ZdfProgramDetails.NAMESPACE, name = "response")
+@XmlRootElement(namespace = ZdfProgramDetailsXml.NAMESPACE, name = "response")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ZdfProgramDetails {
+public class ZdfProgramDetailsXml {
 
     static final String NAMESPACE = "http://www.zdf.de/ZDFmediathek/v2";
 

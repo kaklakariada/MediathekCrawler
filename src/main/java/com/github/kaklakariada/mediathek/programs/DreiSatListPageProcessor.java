@@ -39,7 +39,7 @@ public class DreiSatListPageProcessor extends HtmlDocumentProcessor {
         objectIds.stream()
                 .limit(context.getConfig().getIterationLimit())
                 .map(objId -> "http://www.3sat.de/mediathek/xmlservice/v2/web/beitragsDetails?ak=web&id=" + objId)
-                .forEach(url -> context.submit(url, new ZdfProgramDetailsProcessor(context, getChannel())));
+                .forEach(url -> context.submit(url, new ZdfProgramDetailsXmlProcessor(context, getChannel())));
 
         submitNextPageLink(doc);
     }

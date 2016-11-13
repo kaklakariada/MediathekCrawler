@@ -14,18 +14,19 @@ import com.github.kaklakariada.mediathek.converter.ConverterInput;
 import com.github.kaklakariada.mediathek.converter.XmlConverter;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
-public class ZdfProgramDetailsTest {
+public class ZdfProgramDetailsXmlTest {
 
     @Test
     public void test() throws IOException {
-        final ZdfProgramDetails details = parseFile(
+        final ZdfProgramDetailsXml details = parseFile(
                 Paths.get("src/test/resources/com/github/kaklakariada/mediathek/programs/zdf-mediathek-v2.xml"));
         assertThat(details.getVideo().getInfo().getTitle(), equalTo("auslandsjournal extra vom 11.11.2016"));
         assertThat(details.getVideo().getDetails().getCurrentPage(), equalTo("//www.3sat.de/mediathek/?obj=62877"));
+        assertThat(details.getVideo().getDetails().getBasename(), equalTo("161111_sendung_ajextra"));
     }
 
-    private ZdfProgramDetails parseFile(Path path) throws IOException {
-        final XmlConverter<ZdfProgramDetails> converter = new XmlConverter<>(ZdfProgramDetails.class);
+    private ZdfProgramDetailsXml parseFile(Path path) throws IOException {
+        final XmlConverter<ZdfProgramDetailsXml> converter = new XmlConverter<>(ZdfProgramDetailsXml.class);
         final String content = new String(Files.readAllBytes(path));
         return converter.convert(new ConverterInput(content, ParsedUrl.parse(path.toUri().toURL())));
     }

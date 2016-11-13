@@ -12,8 +12,10 @@ import java.nio.file.Paths;
 
 import org.junit.Test;
 
+import com.github.kaklakariada.mediathek.converter.ContentFormat;
+import com.github.kaklakariada.mediathek.converter.Converter;
+import com.github.kaklakariada.mediathek.converter.ConverterFactory;
 import com.github.kaklakariada.mediathek.converter.ConverterInput;
-import com.github.kaklakariada.mediathek.converter.JsonConverter;
 import com.github.kaklakariada.mediathek.programs.ZdfProgramDetailsJson.Formitaet;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
@@ -37,7 +39,8 @@ public class ZdfProgramDetailsJsonTest {
     }
 
     private ZdfProgramDetailsJson parseFile(Path path) throws IOException {
-        final JsonConverter<ZdfProgramDetailsJson> converter = new JsonConverter<>(ZdfProgramDetailsJson.class);
+        final Converter<ZdfProgramDetailsJson> converter = new ConverterFactory().createConverter(ContentFormat.JSON,
+                ZdfProgramDetailsJson.class);
         final String content = new String(Files.readAllBytes(path));
         return converter.convert(new ConverterInput(content, ParsedUrl.parse(path.toUri().toURL())));
     }

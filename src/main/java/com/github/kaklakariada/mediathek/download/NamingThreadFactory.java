@@ -4,7 +4,7 @@ import java.text.MessageFormat;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class NamingThreadFactory implements ThreadFactory {
+class NamingThreadFactory implements ThreadFactory {
 
     private final AtomicInteger threadNumber = new AtomicInteger(1);
     private final String nameTemplate;

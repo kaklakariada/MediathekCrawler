@@ -10,8 +10,10 @@ import java.nio.file.Paths;
 
 import org.junit.Test;
 
+import com.github.kaklakariada.mediathek.converter.ContentFormat;
+import com.github.kaklakariada.mediathek.converter.Converter;
+import com.github.kaklakariada.mediathek.converter.ConverterFactory;
 import com.github.kaklakariada.mediathek.converter.ConverterInput;
-import com.github.kaklakariada.mediathek.converter.XmlConverter;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
 public class ZdfProgramDetailsXmlTest {
@@ -26,7 +28,8 @@ public class ZdfProgramDetailsXmlTest {
     }
 
     private ZdfProgramDetailsXml parseFile(Path path) throws IOException {
-        final XmlConverter<ZdfProgramDetailsXml> converter = new XmlConverter<>(ZdfProgramDetailsXml.class);
+        final Converter<ZdfProgramDetailsXml> converter = new ConverterFactory().createConverter(ContentFormat.XML,
+                ZdfProgramDetailsXml.class);
         final String content = new String(Files.readAllBytes(path));
         return converter.convert(new ConverterInput(content, ParsedUrl.parse(path.toUri().toURL())));
     }

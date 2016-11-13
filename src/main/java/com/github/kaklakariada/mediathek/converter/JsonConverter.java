@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.kaklakariada.mediathek.CrawlerException;
 
-public class JsonConverter<T> extends ResponseConverter<T> {
+class JsonConverter<T> extends Converter<T> {
 
     private final Class<T> type;
     private final ObjectMapper objectMapper;

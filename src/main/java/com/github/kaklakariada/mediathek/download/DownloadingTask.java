@@ -12,15 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.mediathek.CrawlerException;
+import com.github.kaklakariada.mediathek.converter.Converter;
+import com.github.kaklakariada.mediathek.converter.ConverterFactory;
 import com.github.kaklakariada.mediathek.converter.ConverterInput;
-import com.github.kaklakariada.mediathek.converter.HtmlDocumentConverter;
-import com.github.kaklakariada.mediathek.converter.JsonConverter;
-import com.github.kaklakariada.mediathek.converter.ResponseConverter;
-import com.github.kaklakariada.mediathek.converter.XmlConverter;
 import com.github.kaklakariada.mediathek.processor.DocumentProcessor;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
-public class DownloadingTask implements Runnable {
+class DownloadingTask implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(DownloadingTask.class);
 
     private static final int THROTTLING_DELAY_MILLIS = 200;
@@ -29,13 +27,16 @@ public class DownloadingTask implements Runnable {
     private final ExecutorService processingExecutor;
     private final DocumentProcessor<?> processor;
 
-    public DownloadingTask(ParsedUrl url, ExecutorService processingExecutor, DocumentProcessor<?> processor) {
+    private final ConverterFactory converterFactory;
+
+    DownloadingTask(ParsedUrl url, ExecutorService processingExecutor, DocumentProcessor<?> processor) {
         this.url = url;
         this.processingExecutor = processingExecutor;
         this.processor = processor;
+        this.converterFactory = new ConverterFactory();
     }
 
-    private ConverterInput downloadUrl() {
+    private String downloadUrl() {
         LOG.trace("Downloading url {}...", url);
         final Instant start = Instant.now();
         final StringBuilder b = new StringBuilder();
@@ -49,11 +50,9 @@ public class DownloadingTask implements Runnable {
             throw new CrawlerException("Error reading from url " + url, e);
         }
 
-        // final Connection connection = Jsoup.connect(url.toString());
-        // final Response response = connection.execute();
-        final ConverterInput converterInput = new ConverterInput(b.toString(), url);
-        LOG.trace("Downloaded {} in {}", url, Duration.between(start, Instant.now()));
-        return converterInput;
+        final String content = b.toString();
+        LOG.trace("Downloaded {} chars from {} in {}", content.length(), url, Duration.between(start, Instant.now()));
+        return content;
     }
 
     public ParsedUrl getUrl() {
@@ -62,29 +61,15 @@ public class DownloadingTask implements Runnable {
 
     @Override
     public void run() {
-        final ConverterInput response = downloadUrl();
-        processingExecutor.execute(() -> process(response, processor));
+        final String content = downloadUrl();
+        processingExecutor.execute(() -> process(content, processor));
         delay();
     }
 
-    private <T> void process(final ConverterInput converterInput, DocumentProcessor<T> proc) {
-        final ResponseConverter<T> converter = createConverter(proc);
-        final T doc = converter.convert(converterInput);
+    private <T> void process(final String content, DocumentProcessor<T> proc) {
+        final Converter<T> converter = converterFactory.createConverter(proc.getContentFormat(), proc.getInputType());
+        final T doc = converter.convert(new ConverterInput(content, url));
         proc.process(url, doc);
-    }
-
-    @SuppressWarnings("unchecked")
-    private <T> ResponseConverter<T> createConverter(DocumentProcessor<T> proc) {
-        switch (proc.getContentFormat()) {
-        case HTML:
-            return (ResponseConverter<T>) new HtmlDocumentConverter();
-        case XML:
-            return new XmlConverter<>(proc.getInputType());
-        case JSON:
-            return new JsonConverter<>(proc.getInputType());
-        default:
-            throw new CrawlerException("No converter defined for " + proc.getContentFormat());
-        }
     }
 
     private void delay() {

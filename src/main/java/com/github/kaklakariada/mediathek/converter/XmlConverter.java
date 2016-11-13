@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.mediathek.CrawlerException;
 
-public class XmlConverter<T> extends ResponseConverter<T> {
+class XmlConverter<T> extends Converter<T> {
 
     private static final Logger LOG = LoggerFactory.getLogger(XmlConverter.class);
 

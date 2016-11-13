@@ -11,13 +11,13 @@ import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
-public class HostAwareDownloadExecutor {
+class HostAwareDownloadExecutor {
 
     private static final Logger LOG = LoggerFactory.getLogger(HostAwareDownloadExecutor.class);
 
     private final Map<String, ExecutorService> executors = new HashMap<>();
 
-    public void execute(DownloadingTask downloadingTask) {
+    void execute(DownloadingTask downloadingTask) {
         getExecutor(downloadingTask.getUrl()).execute(downloadingTask);
     }
 
@@ -35,12 +35,12 @@ public class HostAwareDownloadExecutor {
         return Executors.newSingleThreadExecutor(new NamingThreadFactory("download-" + host + "-{0}"));
     }
 
-    public void shutdown() {
+    void shutdown() {
         LOG.debug("Shutting down {} executors", executors.size());
         executors.values().forEach(ExecutorService::shutdown);
     }
 
-    public void awaitTermination(int timeout, TimeUnit unit) {
+    void awaitTermination(int timeout, TimeUnit unit) {
         LOG.debug("Await termination of {} executors", executors.size());
         executors.values().forEach(e -> {
             try {

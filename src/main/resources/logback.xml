@@ -6,9 +6,11 @@
 		</encoder>
 	</appender>
 
-    <logger name="com.github.kaklakariada.mediathek.converter.XmlConverter" level="debug" />
-    <logger name="com.github.kaklakariada.mediathek.download.DownloadingTask" level="debug" />
-	<root level="debug">
+    <logger name="com.github.kaklakariada.mediathek.converter.XmlConverter" level="warn" />
+    <logger name="com.github.kaklakariada.mediathek.download.DownloadingTask" level="warn" />
+    <logger name="com.github.kaklakariada.mediathek.download.ActiveThreadCounter" level="trace" />
+    
+	<root level="warn">
 		<appender-ref ref="STDOUT" />
 	</root>
 

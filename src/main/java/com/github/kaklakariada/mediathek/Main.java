@@ -6,5 +6,7 @@ public class Main {
     public static void main(String[] args) {
         final CrawlerContext crawler = new CrawlerContext();
         crawler.getExecutor().executeDownload("http://www.3sat.de/mediathek/", new DreiSatMainPageProcessor(crawler));
+        crawler.getExecutor().await();
+        crawler.getExecutor().shutdown();
     }
 }

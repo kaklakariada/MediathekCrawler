@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.concurrent.ExecutorService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,12 +24,12 @@ class DownloadingTask implements UrlTask {
     private static final int THROTTLING_DELAY_MILLIS = 200;
 
     private final ParsedUrl url;
-    private final ExecutorService processingExecutor;
+    private final CountingExecutorService processingExecutor;
     private final DocumentProcessor<?> processor;
 
     private final ConverterFactory converterFactory;
 
-    DownloadingTask(ParsedUrl url, ExecutorService processingExecutor, DocumentProcessor<?> processor) {
+    DownloadingTask(ParsedUrl url, CountingExecutorService processingExecutor, DocumentProcessor<?> processor) {
         this.url = url;
         this.processingExecutor = processingExecutor;
         this.processor = processor;

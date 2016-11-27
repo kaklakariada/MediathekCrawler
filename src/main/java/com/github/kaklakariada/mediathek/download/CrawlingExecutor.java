@@ -2,14 +2,13 @@ package com.github.kaklakariada.mediathek.download;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentHashMap.KeySetView;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.kaklakariada.mediathek.CrawlerException;
 import com.github.kaklakariada.mediathek.model.FileSize;
 import com.github.kaklakariada.mediathek.model.TvChannel;
 import com.github.kaklakariada.mediathek.processor.DocumentProcessor;
@@ -19,15 +18,16 @@ public class CrawlingExecutor {
     private static final Logger LOG = LoggerFactory.getLogger(CrawlingExecutor.class);
 
     private final HostAwareDownloadExecutor downloadingExecutor;
-    private final ExecutorService processingExecutor;
+    private final CountingExecutorService processingExecutor;
 
     private final KeySetView<String, Boolean> vistedUrls;
 
+    private final ActiveThreadCounter counter;
+
     public CrawlingExecutor() {
-        downloadingExecutor = new HostAwareDownloadExecutor();
-        final int maxNumberOfThreads = Runtime.getRuntime().availableProcessors();
-        LOG.info("Using processing thread pool with {} threads", maxNumberOfThreads);
-        processingExecutor = Executors.newFixedThreadPool(maxNumberOfThreads, new NamingThreadFactory("processor-{0}"));
+        counter = new ActiveThreadCounter();
+        downloadingExecutor = new HostAwareDownloadExecutor(counter);
+        processingExecutor = CountingExecutorService.createProcessingExecutor(counter);
         vistedUrls = ConcurrentHashMap.newKeySet();
     }
 
@@ -58,11 +58,17 @@ public class CrawlingExecutor {
         downloadingExecutor.shutdown();
         processingExecutor.shutdown();
         downloadingExecutor.awaitTermination(5, TimeUnit.SECONDS);
-        try {
-            processingExecutor.awaitTermination(5, TimeUnit.SECONDS);
-        } catch (final InterruptedException e) {
-            LOG.warn("Exception shutting down executors", e);
-        }
+        processingExecutor.awaitTermination(5, TimeUnit.SECONDS);
         LOG.debug("Shutdown complete.");
+    }
+
+    public void await() {
+        LOG.debug("Waiting until threads are started...");
+        try {
+            Thread.sleep(100);
+        } catch (final InterruptedException e) {
+            throw new CrawlerException("Error sleeping", e);
+        }
+        counter.await();
     }
 }

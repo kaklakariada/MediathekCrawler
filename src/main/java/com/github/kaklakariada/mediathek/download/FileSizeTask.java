@@ -1,7 +1,6 @@
 package com.github.kaklakariada.mediathek.download;
 
 import java.net.HttpURLConnection;
-import java.util.concurrent.ExecutorService;
 import java.util.function.Consumer;
 
 import org.slf4j.Logger;
@@ -20,9 +19,9 @@ public class FileSizeTask implements UrlTask {
     private final ParsedUrl url;
     private final Consumer<FileSize> callback;
 
-    private final ExecutorService processingExecutor;
+    private final CountingExecutorService processingExecutor;
 
-    public FileSizeTask(TvChannel channel, ParsedUrl url, ExecutorService processingExecutor,
+    public FileSizeTask(TvChannel channel, ParsedUrl url, CountingExecutorService processingExecutor,
             Consumer<FileSize> callback) {
         this.channel = channel;
         this.url = url;

@@ -2,8 +2,6 @@ package com.github.kaklakariada.mediathek.download;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -15,39 +13,34 @@ class HostAwareDownloadExecutor {
 
     private static final Logger LOG = LoggerFactory.getLogger(HostAwareDownloadExecutor.class);
 
-    private final Map<String, ExecutorService> executors = new HashMap<>();
+    private final Map<String, CountingExecutorService> executors = new HashMap<>();
+
+    private final ActiveThreadCounter counter;
+
+    public HostAwareDownloadExecutor(ActiveThreadCounter counter) {
+        this.counter = counter;
+    }
 
     void execute(UrlTask downloadingTask) {
         getExecutor(downloadingTask.getUrl()).execute(downloadingTask);
     }
 
-    private ExecutorService getExecutor(ParsedUrl url) {
-        ExecutorService executor = executors.get(url.getHost());
+    private CountingExecutorService getExecutor(ParsedUrl url) {
+        CountingExecutorService executor = executors.get(url.getHost());
         if (executor == null) {
-            executor = createExecutor(url.getHost());
+            executor = CountingExecutorService.createDownloadExecutor(counter, url.getHost());
             executors.put(url.getHost(), executor);
         }
         return executor;
     }
 
-    private ExecutorService createExecutor(String host) {
-        LOG.debug("Create new download executor for host {}", host);
-        return Executors.newSingleThreadExecutor(new NamingThreadFactory("dl-" + host));
-    }
-
     void shutdown() {
         LOG.debug("Shutting down {} executors", executors.size());
-        executors.values().forEach(ExecutorService::shutdown);
+        executors.values().forEach(CountingExecutorService::shutdown);
     }
 
     void awaitTermination(int timeout, TimeUnit unit) {
         LOG.debug("Await termination of {} executors", executors.size());
-        executors.values().forEach(e -> {
-            try {
-                e.awaitTermination(timeout, unit);
-            } catch (final InterruptedException e1) {
-                LOG.warn("Exception shutting down executors", e);
-            }
-        });
+        executors.values().forEach(e -> e.awaitTermination(timeout, unit));
     }
 }

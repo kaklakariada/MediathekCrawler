@@ -1,24 +1,17 @@
 language: java
 sudo: false
-install: true
-
-addons:
-  sonarqube:
-    token:
-      secure: "qF/bdTJxQkY/NOqafux/PZeSG4ZvtzwpxSTR9ZE7wyxAO/6YEJQsu1lA0giJkDo1ZyFcoL6XXzSgFX2bfkMvX+ubnPXZh4zg3iVJ748ta2NGxR7NpoBEGeI+bTljsoaVtoG+xY8reUeySUOaupJuINIrgUll+k1XdoYv1t8BD/yEpAcyzOh0SF+kgANUJNP4sdiAgHa+hClcnAI6EjFdnx0rZSKGK3fXRzphp38J7lESKubAHd+Xf3P4zcttMNy+LZgCXWpS54d7OLnrpm907qB/OyStc+yih8iBungCfXNfaiL5uL9b4WW7zzgS/IMezzvPg4/cR/o8KJmcVbi7kPEBaNdvenjD3RKlvJOOnr43MtGrc8nS7AnZw/BA32uSSWqV4TMOb75SDnNSkosM1Me0Kp3euJKVenx+snhcfKjwHDAZjxTVr46dCXkaxmCC5Bg+442OGILLHKC3ASgWUuYR3cSB3jp7OGGT+VGLaRM+/tA206cJYAYn7w7gSjfP16uL3JNTgCeBKUparvMrJ/jywzYGoCzSxDuZNAGREd0OFXnUSTE47nhIXZubIvFokefrt5k132sg3BzUImpIt5IuzU7BDKbeEhPWqiL6ll0QtJDFcJ/RSmvxvSitnKIIQ26eFU5CTK1FN03HOX9YY+lrMv0N7SmTQqCGVCMHsAs="
-
 jdk:
 - oraclejdk8
-
 script:
-- "./gradlew sonarqube"
-
+- "./gradlew sonarqube -Dsonar.login=$SONAR_TOKEN --info"
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-
 cache:
   directories:
   - "$HOME/.m2/repository"
   - "$HOME/.sonar/cache"
   - "$HOME/.gradle"
   - ".gradle"
+env:
+  global:
+    secure: N7kzXDkpvGu2p+2VxDEXl6Sc9WimG14v1qm2uVhMcs7es+ssaEu1vOVvHvA09nXvSpqChY+I5QftTpmRITtXDVoJrS+pAc2j1VGr5cbDkOdVYncdM915NxL4mI/Wi+jiQUEmYosBI9jMXzSLS9Lq8UpjOkwplGMEkd8/d8icBzx4QmfvhXXL9RFDBhy4gI6HSYd8wDkGBTTAi8mZ8nEeWybgdqe3CH8Ng84iqheYfrBEO4xvHu39KwxBsY3de0o1fBu2o/IWZl9dX+s+90F85ekAHQvpSKzLAyhlAwp3maPex9xDPUnl9rq5bXgk6LWTXdzx6T/U+khx5vUqDgYN36wlpzZtRUTL/vSPCnRK8nzLbW20pJiYTS8HVqB5E8X2VkL4PbOMVI0Z8DRFn8DlKtVYpAZl5SH5llTPe6VpjOLS0Nm4EQhuKjUqqFSaMLgsvhFmPpLw/GEKiua79TmbnA1WbiCdsCji+OiHpqUFy2nfg8tXcUcJaAL0z2DxYsATZEvr4StmC1lP+qE8tkcFJy1yl0tOKgSODeTKNlvxoHoDKPm02ffpIeil+0frP7jJNu/8nD70R/RfFRAa0X4FTvzQz4sI9cdmr3ByM32bgsydGLrVuR1GzkQArugEpfHkJ3rNK1rkT1y9kLNrMvYahBcl3mwjylCFyA0dEesRNlo=

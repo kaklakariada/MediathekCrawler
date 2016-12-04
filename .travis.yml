@@ -3,7 +3,7 @@ sudo: false
 jdk:
 - oraclejdk8
 script:
-- "./gradlew sonarqube -Dsonar.login=$SONAR_TOKEN -Dsonar.login=$SONAR_TOKEN --info --stacktrace"
+- "./gradlew sonarqube -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR_TOKEN --info --stacktrace"
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:

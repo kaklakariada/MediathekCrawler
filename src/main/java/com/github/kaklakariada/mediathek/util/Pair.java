@@ -22,13 +22,13 @@ public class Pair<A, B> {
         if (other instanceof Pair) {
             @SuppressWarnings("unchecked")
             final Pair<A, B> otherPair = (Pair<A, B>) other;
-            return ((this.first == otherPair.first ||
+            final boolean firstEqual = this.first == otherPair.first ||
                     (this.first != null && otherPair.first != null &&
-                            this.first.equals(otherPair.first)))
-                    &&
-                    (this.second == otherPair.second ||
-                            (this.second != null && otherPair.second != null &&
-                                    this.second.equals(otherPair.second))));
+                            this.first.equals(otherPair.first));
+            final boolean secondEqual = this.second == otherPair.second ||
+                    (this.second != null && otherPair.second != null &&
+                            this.second.equals(otherPair.second));
+            return firstEqual && secondEqual;
         }
 
         return false;

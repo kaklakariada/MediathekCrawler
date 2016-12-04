@@ -54,6 +54,7 @@ public class CountingExecutorService {
             executor.awaitTermination(timeout, unit);
         } catch (final InterruptedException e) {
             LOG.warn("Exception shutting down executor " + executor, e);
+            Thread.currentThread().interrupt();
         }
     }
 }

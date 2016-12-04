@@ -81,6 +81,7 @@ class DownloadingTask implements UrlTask {
             Thread.sleep(THROTTLING_DELAY_MILLIS);
         } catch (final InterruptedException e) {
             LOG.warn("Exception when sleeping", e);
+            Thread.currentThread().interrupt();
         }
     }
 }

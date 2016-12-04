@@ -12,7 +12,7 @@ public class CrawlerContext {
     public CrawlerContext() {
         this.executor = new CrawlingExecutor();
         tvProgramCollector = new TvProgramCollector();
-        this.config = new Config();
+        this.config = Config.load();
     }
 
     public CrawlingExecutor getExecutor() {

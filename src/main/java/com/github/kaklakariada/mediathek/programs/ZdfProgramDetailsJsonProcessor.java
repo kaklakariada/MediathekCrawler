@@ -27,7 +27,7 @@ public class ZdfProgramDetailsJsonProcessor extends DocumentProcessor<ZdfProgram
     public void process(ParsedUrl url, ZdfProgramDetailsJson doc) {
         LOG.debug("Processing url {}: {}", url, doc);
         doc.getFormitaeten().stream()
-                .filter(f -> f.getType().equals("h264_aac_mp4_http_na_na"))
+                .filter(f -> "h264_aac_mp4_http_na_na".equals(f.getType()))
                 .filter(f -> f.getFacets().contains("progressive"))
                 .map(f -> new Pair<>(getResolution(f),
                         f.getPlayouts().get("main").getUris().stream().findFirst().orElse(null)))

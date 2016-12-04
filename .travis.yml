@@ -1,11 +1,19 @@
 language: java
 sudo: false
+install: true
+addons:
+  sonarqube:
+    token:
+      secure: kFn7joKukfGIedaWMaQ+CsuF0y/ssiMw2QxGD1ZZQRELQ9rOu+jtfnS0OgR9qzDPsl/urVqtbFbCfVRZpTuvLdbHzijvzUiWheEQ9ELDViM5o2nhn3qdEPht22YAz3/30gf0A9wyuoKx/3DravzTJHNk42PiM6zJ8DLmPp41V8i9l0VI6uYUj3DNd5uTQBQxrejuGqZS2DrAMGLVnmEHCIZt3LWXYNs4y5KSgsO9airlGCEdS34ITk2YBqrvtD8ecDvaukwsu3vGdw8uvePYSQjMl1pg1SCidzvnNVa4FZbBUEGQsQeob3bgDo0jKReNXJEE7Yn6i6Jc8OFVdDUh0kDJDQwPQYh/BiDHZrBScERNS8tF7Z+1rvssFX26yNPcPBrN2a0h9lfTsJtdfDG51HMjTtesowPFhLRtcygR9ql/ok+0R81rl5IDTCmySqPzvtaKEXqwlChOpH24oXjvmhjr4zMw68kc74BmIV/RmIlSaYLd6auNu+VOoB3cLUZck4gH/FXDyXTpcn8/7lYT+ox6zOh2fG9ucZzl0PettxByrTkQSJmHGeypEypO1q/eXdm6QiBO9IP83dvTN6mZ9uFPVIJzDeAONczd6U+yZUXbZW/vF04UE/KDwslj7eM8DsdJmMZ/f4jZi4LZUhpo/zYYHUmqaNMkPpla+EpoqL8=
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
+script:
+- "./gradlew sonarqube"
 before_cache:
-  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - "$HOME/.m2/repository"
+  - "$HOME/.sonar/cache"
+  - "$HOME/.gradle"
+  - ".gradle"

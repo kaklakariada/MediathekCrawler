@@ -34,8 +34,8 @@ public class CountingExecutorService {
     }
 
     public void execute(Runnable r) {
+        counter.threadStarted();
         executor.execute(() -> {
-            counter.threadStarted();
             try {
                 r.run();
             } finally {

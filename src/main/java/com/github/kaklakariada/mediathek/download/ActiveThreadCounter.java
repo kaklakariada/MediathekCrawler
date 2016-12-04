@@ -13,9 +13,8 @@ class ActiveThreadCounter {
     private final int phase;
 
     ActiveThreadCounter() {
-        phaser = new Phaser(1);
+        phaser = new Phaser();
         phase = phaser.getPhase();
-        // threadStarted();
     }
 
     void threadStarted() {
@@ -29,14 +28,9 @@ class ActiveThreadCounter {
     }
 
     void await() {
-        // phaser.register();
-        // while (!phaser.isTerminated()) {
-        // }
-        logPhaserState("Waiting for phase " + phase + "...");
+        LOG.debug("Waiting for phaser {} to reach phase {}", phaser, phase);
         phaser.awaitAdvance(phase);
-        logPhaserState("Phaser finished");
-
-        // phaser.arriveAndDeregister();
+        LOG.debug("Phaser finished: {}", phaser);
     }
 
     private void logPhaserState(String message) {

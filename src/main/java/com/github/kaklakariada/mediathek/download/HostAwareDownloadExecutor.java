@@ -10,14 +10,12 @@ import org.slf4j.LoggerFactory;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
 class HostAwareDownloadExecutor {
-
     private static final Logger LOG = LoggerFactory.getLogger(HostAwareDownloadExecutor.class);
 
     private final Map<String, CountingExecutorService> executors = new HashMap<>();
-
     private final ActiveThreadCounter counter;
 
-    public HostAwareDownloadExecutor(ActiveThreadCounter counter) {
+    HostAwareDownloadExecutor(ActiveThreadCounter counter) {
         this.counter = counter;
     }
 
@@ -35,12 +33,12 @@ class HostAwareDownloadExecutor {
     }
 
     void shutdown() {
-        LOG.debug("Shutting down {} executors", executors.size());
+        LOG.trace("Shutting down {} executors", executors.size());
         executors.values().forEach(CountingExecutorService::shutdown);
     }
 
     void awaitTermination(int timeout, TimeUnit unit) {
-        LOG.debug("Await termination of {} executors", executors.size());
+        LOG.trace("Await termination of {} executors", executors.size());
         executors.values().forEach(e -> e.awaitTermination(timeout, unit));
     }
 }

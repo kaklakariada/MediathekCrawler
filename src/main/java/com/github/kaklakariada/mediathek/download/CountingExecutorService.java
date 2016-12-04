@@ -11,7 +11,6 @@ public class CountingExecutorService {
     private static final Logger LOG = LoggerFactory.getLogger(CountingExecutorService.class);
 
     private final ExecutorService executor;
-
     private final ActiveThreadCounter counter;
 
     private CountingExecutorService(ExecutorService executor, ActiveThreadCounter counter) {
@@ -27,8 +26,8 @@ public class CountingExecutorService {
         return new CountingExecutorService(executor, counter);
     }
 
-    public static CountingExecutorService createDownloadExecutor(ActiveThreadCounter counter, String host) {
-        LOG.debug("Create download executor for host {}", host);
+    static CountingExecutorService createDownloadExecutor(ActiveThreadCounter counter, String host) {
+        LOG.trace("Create download executor for host {}", host);
         final ExecutorService executor = Executors.newSingleThreadExecutor(new NamingThreadFactory("dl-" + host));
         return new CountingExecutorService(executor, counter);
     }
@@ -45,10 +44,12 @@ public class CountingExecutorService {
     }
 
     public void shutdown() {
+        LOG.trace("Shutting down executor");
         executor.shutdown();
     }
 
     public void awaitTermination(long timeout, TimeUnit unit) {
+        LOG.trace("Await termination");
         try {
             executor.awaitTermination(timeout, unit);
         } catch (final InterruptedException e) {

@@ -20,13 +20,11 @@ import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
 class DownloadingTask implements UrlTask {
     private static final Logger LOG = LoggerFactory.getLogger(DownloadingTask.class);
-
     private static final int THROTTLING_DELAY_MILLIS = 200;
 
     private final ParsedUrl url;
     private final CountingExecutorService processingExecutor;
     private final DocumentProcessor<?> processor;
-
     private final ConverterFactory converterFactory;
 
     DownloadingTask(ParsedUrl url, CountingExecutorService processingExecutor, DocumentProcessor<?> processor) {
@@ -51,7 +49,7 @@ class DownloadingTask implements UrlTask {
         }
 
         final String content = b.toString();
-        LOG.trace("Downloaded {} chars from {} in {}", content.length(), url, Duration.between(start, Instant.now()));
+        LOG.debug("Downloaded {} chars from {} in {}", content.length(), url, Duration.between(start, Instant.now()));
         return content;
     }
 

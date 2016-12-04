@@ -11,17 +11,17 @@ import com.github.kaklakariada.mediathek.model.FileSize;
 import com.github.kaklakariada.mediathek.model.TvChannel;
 import com.github.kaklakariada.mediathek.util.ParsedUrl;
 
-public class FileSizeTask implements UrlTask {
+class FileSizeTask implements UrlTask {
     private static final Logger LOG = LoggerFactory.getLogger(FileSizeTask.class);
-
     private static final int TIMEOUT_MILLIS = 3000;
+
     private final TvChannel channel;
     private final ParsedUrl url;
     private final Consumer<FileSize> callback;
 
     private final CountingExecutorService processingExecutor;
 
-    public FileSizeTask(TvChannel channel, ParsedUrl url, CountingExecutorService processingExecutor,
+    FileSizeTask(TvChannel channel, ParsedUrl url, CountingExecutorService processingExecutor,
             Consumer<FileSize> callback) {
         this.channel = channel;
         this.url = url;
@@ -40,7 +40,7 @@ public class FileSizeTask implements UrlTask {
                 throw new CrawlerException("Got invalid content length " + contentLength + " for url " + url);
             }
             final FileSize fileSize = FileSize.ofBytes(contentLength);
-            LOG.trace("Got file size {} for url {}", fileSize, url);
+            LOG.debug("Got file size {} for url {}", fileSize, url);
             processingExecutor.execute(() -> callback.accept(fileSize));
         } finally {
             conn.disconnect();

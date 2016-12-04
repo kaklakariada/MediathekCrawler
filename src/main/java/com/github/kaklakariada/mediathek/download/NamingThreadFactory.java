@@ -10,7 +10,7 @@ class NamingThreadFactory implements ThreadFactory {
     private final String nameTemplate;
     private final ThreadGroup group;
 
-    public NamingThreadFactory(String nameTemplate) {
+    NamingThreadFactory(String nameTemplate) {
         final SecurityManager s = System.getSecurityManager();
         group = (s != null) ? s.getThreadGroup() : Thread.currentThread().getThreadGroup();
         this.nameTemplate = nameTemplate;

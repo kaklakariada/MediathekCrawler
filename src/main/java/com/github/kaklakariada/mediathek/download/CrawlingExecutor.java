@@ -8,7 +8,6 @@ import java.util.function.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.kaklakariada.mediathek.CrawlerException;
 import com.github.kaklakariada.mediathek.model.FileSize;
 import com.github.kaklakariada.mediathek.model.TvChannel;
 import com.github.kaklakariada.mediathek.processor.DocumentProcessor;
@@ -63,12 +62,6 @@ public class CrawlingExecutor {
     }
 
     public void await() {
-        LOG.debug("Waiting until threads are started...");
-        try {
-            Thread.sleep(100);
-        } catch (final InterruptedException e) {
-            throw new CrawlerException("Error sleeping", e);
-        }
         counter.await();
     }
 }
